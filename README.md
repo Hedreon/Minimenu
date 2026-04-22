@@ -1,4 +1,4 @@
-# Minimal Menu
+# Minimenu
 
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue)
 ![Game version](https://img.shields.io/badge/minecraft-1.19.2-blueviolet)
