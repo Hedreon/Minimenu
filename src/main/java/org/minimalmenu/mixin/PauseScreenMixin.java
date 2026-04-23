@@ -26,7 +26,6 @@ public abstract class PauseScreenMixin extends Screen {
         super(title);
     }
 
-
     @Inject(method = "createPauseMenu", at = @At("TAIL"))
     private void removeFeedbackAndBugs (CallbackInfo info){
         for (GuiEventListener element : this.children() ) {

@@ -1,7 +1,7 @@
-package minimalmenu;
+package org.minimalmenu;
 
-import minimalmenu.config.ConfigHandler;
-import minimalmenu.screens.FolderScreen;
+import org.minimalmenu.config.ConfigHandler;
+import org.minimalmenu.screens.FolderScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -17,7 +17,7 @@ import java.util.Objects;
 public class MinimalMenu implements ClientModInitializer {
     public static Logger LOGGER = LogManager.getLogger();
 
-    public static final String MOD_ID = "minimalmenu";
+    public static final String MOD_ID = "org/minimalmenu";
     public static final String MOD_NAME = "MinimalMenu";
 
     @Override

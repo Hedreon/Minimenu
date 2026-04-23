@@ -1,0 +1,19 @@
+{
+    "required": true,
+    "package": "org.minimalmenu.mixin",
+    "compatibilityLevel": "JAVA_25",
+    "mixins": [],
+    "client": [
+        "PanoramaRendererMixin",
+        "TitleScreenMixin",
+        "SelectWorldScreenMixin",
+        "OptionsScreenMixin",
+        "ScreenMixin",
+        "PauseScreenMixin",
+        "TitleScreenButtonMixin",
+        "GridWidgetAdderMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
