@@ -7,17 +7,17 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import minimalmenu.config.ConfigHandler;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.RotatingCubeMapRenderer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.PanoramaRenderer;
 
-@Mixin(RotatingCubeMapRenderer.class)
-public abstract class RotatingCubeMapRendererMixin {
-    @Shadow @Final private MinecraftClient client;
+@Mixin(PanoramaRenderer.class)
+public abstract class PanoramaRendererMixin {
+    @Shadow @Final private Minecraft minecraft;
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     public void render(float delta, float alpha, CallbackInfo info) {
         if (ConfigHandler.DIRT_BACKGROUND) {
-            this.client.currentScreen.renderBackgroundTexture(0);
+            this.minecraft.screen.renderMenuBackgroundTexture(0);
             info.cancel();
         }
     }

@@ -1,10 +1,10 @@
 package minimalmenu.screens;
 
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.screen.ScreenTexts;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.client.gui.components.Button;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.Util;
 import java.io.File;
 
@@ -12,55 +12,55 @@ public class FolderScreen extends Screen {
     private final Screen parent;
 
     public FolderScreen(Screen parent) {
-        super(Text.translatable("minimalmenu.screen.folders"));
+        super(Component.translatable("minimalmenu.screen.folders"));
         this.parent = parent;
     }
 
     public void init() {
-        assert client != null;
-        File file = client.runDirectory.toPath().toFile();
+        assert minecraft != null;
+        File file = minecraft.gameDirectory.toPath().toFile();
         String[] directories = file.list((dir, name) -> new File(dir, name).isDirectory());
 
         assert directories != null;
         int y = (directories.length * 24) / 2;
         for (int i = 0; i <= directories.length; i++) {
             if (i == 0) {
-                this.addDrawableChild(
-                    ButtonWidget.builder(
-                    Text.literal(file.getName()),
+                this.addRenderableWidget(
+                    Button.builder(
+                    Component.literal(file.getName()),
                         button -> {
-                            Util.getOperatingSystem().open(file);
+                            Util.getPlatform().openFile(file);
                         }
                     )
-                    .position(this.width / 2 - 100, (this.height / 2 + (i-1) * 24) - y)
+                    .pos(this.width / 2 - 100, (this.height / 2 + (i-1) * 24) - y)
                     .size(200, 20)
                     .build()
                 );
 
-                this.addDrawableChild(
-                    ButtonWidget.builder(
-                        ScreenTexts.DONE,
+                this.addRenderableWidget(
+                    Button.builder(
+                        CommonComponents.GUI_DONE,
                         button -> {
-                            client.setScreen(parent);
+                            minecraft.setScreen(parent);
                         }
                     )
-                    .position(this.width / 2 - 100, (this.height / 2 + (directories.length + 1) * 24) - y)
+                    .pos(this.width / 2 - 100, (this.height / 2 + (directories.length + 1) * 24) - y)
                     .size(200, 20)
                     .build()
                 );
             }
             if (i < directories.length) {
                 int x = i;
-                this.addDrawableChild(
-                    ButtonWidget.builder(
-                        Text.literal(directories[x]),
+                this.addRenderableWidget(
+                    Button.builder(
+                        Component.literal(directories[x]),
                         button -> {
                             File fileToOpen = new File(file.getAbsolutePath() + File.separator + directories[x]);
                             System.out.println(fileToOpen.getAbsolutePath());
-                            Util.getOperatingSystem().open(fileToOpen);
+                            Util.getPlatform().openFile(fileToOpen);
                         }
                     )
-                    .position(this.width / 2 - 100, (this.height / 2 + i * 24) - y)
+                    .pos(this.width / 2 - 100, (this.height / 2 + i * 24) - y)
                     .size(200, 20)
                     .build()
                 );
@@ -68,9 +68,9 @@ public class FolderScreen extends Screen {
         }
     }
 
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
-        drawCenteredText(matrices, this.textRenderer, this.title, this.width / 2, 15, 16777215);
+        drawCenteredText(matrices, this.font, this.title, this.width / 2, 15, 16777215);
         super.render(matrices, mouseX, mouseY, delta);
     }
 }

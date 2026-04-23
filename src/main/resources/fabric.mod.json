@@ -1,44 +1,43 @@
 {
-  "schemaVersion": 1,
-  "id": "minimalmenu",
-  "version": "${version}",
-  "name": "MinimalMenu",
-  "description": "Removes the clutter from the title screen. This small lightweight mod gets rid of the language, accessibility, and Minecraft Realm boxes. All are independently configurable.",
-  "authors": [
-    "TomB_134"
-  ],
-  "contributors": [
-    "jackassmc",
-    "umollu",
-    "huiki",
-    "TGODiamond"
-  ],
-  "contact": {
-    "homepage": "https://github.com/TomB-134/MinimalMenu",
-    "issues" : "https://github.com/TomB-134/MinimalMenu/issues",
-    "sources": "https://github.com/TomB-134/MinimalMenu"
-  },
-  "license": "MIT",
-  "icon": "assets/minimalmenu/icon64.png",
-  "environment": "client",
-  "entrypoints": {
-    "main": [],
-    "client": [
-      "minimalmenu.MinimalMenu"
+    "schemaVersion": 1,
+    "id": "minimalmenu",
+    "version": "${version}",
+    "name": "MinimalMenu",
+    "description": "Removes the clutter from the title screen. This small lightweight mod gets rid of the language, accessibility, and Minecraft Realm boxes. All are independently configurable.",
+    "authors": [
+        "TomB_134",
+        "Hedreon"
     ],
-    "server": [],
-    "modmenu": [
-      "minimalmenu.config.ModMenuIntegration"
-    ]
-  },
-  "mixins": [
-    "minimalmenu.mixins.json"
-  ],
-  "depends": {
-    "fabricloader": ">=0.14.12",
-    "fabric": ">=0.69.1",
-    "modmenu": ">=5.0.2",
-    "java": ">=21",
-    "cloth-config2": ">=9.0.94"
-  }
+    "contributors": [
+        "jackassmc",
+        "umollu",
+        "huiki",
+        "TGODiamond"
+    ],
+    "contact": {
+        "issues" : "https://github.com/TomB-134/MinimalMenu/issues",
+        "sources": "https://github.com/TomB-134/MinimalMenu"
+    },
+    "license": "MIT",
+    "icon": "assets/minimalmenu/icon64.png",
+    "environment": "client",
+    "entrypoints": {
+        "client": [
+            "minimalmenu.MinimalMenu"
+        ],
+        "modmenu": [
+            "minimalmenu.config.ModMenuIntegration"
+        ]
+    },
+    "mixins": [
+        "minimalmenu.mixins.json"
+    ],
+    "depends": {
+        "java": ">=25",
+        "minecraft": "~${minecraft_version}",
+        "fabricloader": ">=${loader_version}",
+        "fabric-api": ">=${fabric_api_version}",
+        "modmenu": ">=${mod_menu_version}",
+        "cloth-config2": ">=${cloth_config_version}"
+    }
 }

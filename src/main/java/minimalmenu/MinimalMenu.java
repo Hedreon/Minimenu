@@ -3,9 +3,9 @@ package minimalmenu;
 import minimalmenu.config.ConfigHandler;
 import minimalmenu.screens.FolderScreen;
 import net.fabricmc.api.ClientModInitializer;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.text.Text;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.Util;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -29,20 +29,20 @@ public class MinimalMenu implements ClientModInitializer {
         LOGGER.log(level, "["+MOD_NAME+"] " + message);
     }
 
-    public static boolean buttonMatchesKey (ClickableWidget button, String key) {
-        Text buttonMessage = button.getMessage();
-        Text keyMessage = Text.translatable(key);
+    public static boolean buttonMatchesKey (AbstractWidget button, String key) {
+        Component buttonMessage = button.getMessage();
+        Component keyMessage = Component.translatable(key);
         return Objects.equals(buttonMessage, keyMessage);
     }
 
-    public static void processButtonFolderClick(MinecraftClient client) {
+    public static void processButtonFolderClick(Minecraft client) {
         if (ConfigHandler.OPEN_FOLDER_SCREEN) {
-            FolderScreen folderScreen = new FolderScreen(client.currentScreen);
-            client.setScreenAndRender(folderScreen);
+            FolderScreen folderScreen = new FolderScreen(client.screen);
+            client.setScreenAndShow(folderScreen);
         } else {
             assert client != null;
-            File file = client.runDirectory.toPath().toFile();
-            Util.getOperatingSystem().open(file);
+            File file = client.gameDirectory.toPath().toFile();
+            Util.getPlatform().openFile(file);
         }
     }
 }

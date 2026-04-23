@@ -2,28 +2,30 @@ package minimalmenu.mixin;
 
 import minimalmenu.MinimalMenu;
 import minimalmenu.config.ConfigHandler;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.gui.widget.GridWidget;
-import net.minecraft.client.gui.widget.Positioner;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.layouts.GridLayout;
+import net.minecraft.client.gui.layouts.LayoutSettings;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(GridWidget.Adder.class)
+@Mixin(GridLayout.RowHelper.class)
 public abstract class GridWidgetAdderMixin {
 
-    @Shadow public abstract <T extends ClickableWidget> T add(T widget, int occupiedColumns, Positioner positioner);
+    @Shadow public abstract <T extends AbstractWidget> T add(T widget, int occupiedColumns, LayoutSettings positioner);
 
-    @Shadow public abstract Positioner copyPositioner();
+    @Shadow public abstract LayoutSettings newCellSettings();
 
+    // TODO(Ravel): target method add with the signature not found
+// TODO(Ravel): target method add with the signature not found
     @Inject(method = "add(Lnet/minecraft/client/gui/widget/ClickableWidget;ILnet/minecraft/client/gui/widget/Positioner;)Lnet/minecraft/client/gui/widget/ClickableWidget;", at = @At("HEAD"), cancellable = true, remap = false)
-    public <T extends ClickableWidget> void add (T widget, int occupiedColumns, Positioner positioner, CallbackInfoReturnable<T> cir) {
+    public <T extends AbstractWidget> void add (T widget, int occupiedColumns, LayoutSettings positioner, CallbackInfoReturnable<T> cir) {
 
-        boolean isInSingleplayer = MinecraftClient.getInstance().isInSingleplayer();
-        boolean isLocalLan = MinecraftClient.getInstance().getServer() != null && MinecraftClient.getInstance().getServer().isRemote();
+        boolean isInSingleplayer = Minecraft.getInstance().isLocalServer();
+        boolean isLocalLan = Minecraft.getInstance().getSingleplayerServer() != null && Minecraft.getInstance().getSingleplayerServer().isPublished();
         boolean removeLan = ConfigHandler.REMOVE_LANSP && isInSingleplayer && !isLocalLan;
         boolean removeReporting = ConfigHandler.REMOVE_REPORTING && (!isInSingleplayer || isLocalLan);
 
@@ -33,7 +35,7 @@ public abstract class GridWidgetAdderMixin {
             }
             if (MinimalMenu.buttonMatchesKey(widget, "menu.options") && occupiedColumns == 1) {
                 widget.setWidth(204);
-                this.add(widget, 2, copyPositioner().alignBottom());
+                this.add(widget, 2, newCellSettings().alignVerticallyBottom());
                 cir.cancel();
             }
         } else if (removeReporting) { //REMOVE REPORTING
@@ -42,7 +44,7 @@ public abstract class GridWidgetAdderMixin {
             }
             if (MinimalMenu.buttonMatchesKey(widget, "menu.options") && occupiedColumns == 1) {
                 widget.setWidth(204);
-                this.add(widget, 2, copyPositioner().alignBottom());
+                this.add(widget, 2, newCellSettings().alignVerticallyBottom());
                 cir.cancel();
             }
         }

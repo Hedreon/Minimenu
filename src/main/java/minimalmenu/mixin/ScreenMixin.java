@@ -3,13 +3,13 @@ package minimalmenu.mixin;
 import minimalmenu.MinimalMenu;
 import minimalmenu.config.ConfigHandler;
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.AbstractParentElement;
-import net.minecraft.client.gui.Drawable;
-import net.minecraft.client.gui.screen.GameMenuScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.events.AbstractContainerEventHandler;
+import net.minecraft.client.gui.components.Renderable;
+import net.minecraft.client.gui.screens.PauseScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.client.gui.components.AbstractWidget;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,16 +19,16 @@ import java.util.Collections;
 import java.util.List;
 
 @Mixin(value = Screen.class, priority = 1100)
-public abstract class ScreenMixin extends AbstractParentElement implements Drawable {
-    @Shadow protected MinecraftClient client;
+public abstract class ScreenMixin extends AbstractContainerEventHandler implements Renderable {
+    @Shadow protected Minecraft minecraft;
     @Shadow public int width;
     @Shadow public int height;
 
     @Inject(method = "init", at = @At("RETURN"))
-    private void init(MinecraftClient client, int width, int height, CallbackInfo info) {
+    private void init(Minecraft client, int width, int height, CallbackInfo info) {
         if ((Screen)(Object)this instanceof TitleScreen) {
             afterTitleScreenInit();
-        } else if ((Screen)(Object)this instanceof GameMenuScreen) {
+        } else if ((Screen)(Object)this instanceof PauseScreen) {
 //            afterGameMenuScreenInit();
         }
     }
@@ -37,9 +37,9 @@ public abstract class ScreenMixin extends AbstractParentElement implements Drawa
         final int spacing = 24;
         int yOffset = 0;
         int posY = 0;
-        List<ClickableWidget> widgetList = Screens.getButtons((Screen)(Object)this);
+        List<AbstractWidget> widgetList = Screens.getWidgets((Screen)(Object)this);
         Collections.reverse(widgetList);
-        for (ClickableWidget button : widgetList) {
+        for (AbstractWidget button : widgetList) {
             if (ConfigHandler.REMOVE_SINGLEPLAYER) {
                 if (MinimalMenu.buttonMatchesKey(button, "menu.singleplayer")) {
                     button.visible = false;
@@ -95,11 +95,11 @@ public abstract class ScreenMixin extends AbstractParentElement implements Drawa
         final int buttonWidth = 204;
         final int spacing = 24;
         int yOffset = 0;
-        boolean isInSingleplayer = this.client.isInSingleplayer();
-        boolean isLocalLan = this.client.getServer() != null && this.client.getServer().isRemote();
+        boolean isInSingleplayer = this.minecraft.isLocalServer();
+        boolean isLocalLan = this.minecraft.getSingleplayerServer() != null && this.minecraft.getSingleplayerServer().isPublished();
         boolean removeLan = ConfigHandler.REMOVE_LANSP && isInSingleplayer && !isLocalLan;
         boolean removeReporting = ConfigHandler.REMOVE_REPORTING && (!isInSingleplayer || isLocalLan);
-        for (ClickableWidget button : Screens.getButtons((Screen)(Object)this)) {
+        for (AbstractWidget button : Screens.getWidgets((Screen)(Object)this)) {
             if (removeLan) {
                 if (MinimalMenu.buttonMatchesKey(button, "menu.shareToLan")) {
                     button.visible = false;
