@@ -2,7 +2,15 @@
   <dictionary name="project">
     <words>
       <w>Minimenu</w>
+      <w>Mojang</w>
+      <w>YACL</w>
+      <w>entrypoints</w>
+      <w>fabricloader</w>
+      <w>jvmargs</w>
+      <w>minecraft</w>
       <w>minimenu</w>
+      <w>modmenu</w>
+      <w>yacl</w>
     </words>
   </dictionary>
 </component>
