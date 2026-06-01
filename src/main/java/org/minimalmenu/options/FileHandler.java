@@ -6,6 +6,7 @@ import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
 import org.minimalmenu.Minimenu;
+
 import java.nio.file.Path;
 
 public class FileHandler {
@@ -19,14 +20,17 @@ public class FileHandler {
                     .build())
             .build();
 
+    public enum MODES {
+        Singleplayer,
+        Multiplayer,
+        None
+    }
+
     @SerialEntry(value = "removeEdition")
     public static boolean REMOVE_EDITION;
 
-    @SerialEntry(value = "removeSingleplayer")
-    public static boolean REMOVE_SINGLEPLAYER;
-
-    @SerialEntry(value = "removeMultiplayer")
-    public static boolean REMOVE_MULTIPLAYER;
+    @SerialEntry(value = "removedMode")
+    public static MODES REMOVED_MODE = MODES.None;
 
     @SerialEntry(value = "removeRealms")
     public static boolean REMOVE_REALMS;
