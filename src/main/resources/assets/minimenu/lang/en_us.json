@@ -2,20 +2,21 @@
   "minimenu.options.title": "Minimenu Options",
 
   "minimenu.options.title_screen.title": "Title Screen",
-  "minimenu.options.title_screen.subtitle.java_edition": "Remove JAVA EDITION Subtitle",
-  "minimenu.options.title_screen.button.singleplayer": "Remove Singleplayer Button",
-  "minimenu.options.title_screen.button.multiplayer": "Remove Multiplayer Button",
-  "minimenu.options.title_screen.button.minecraft_realms": "Remove Minecraft Realms Button",
-  "minimenu.options.title_screen.button.language": "Remove Language Button",
-  "minimenu.options.title_screen.button.accessibility": "Remove Accessibility Button",
-  "minimenu.options.title_screen.text.copyright": "Remove Copyright",
-  "minimenu.options.title_screen.background": "Use Dirt Background",
+  "minimenu.options.title_screen.splash_texts.description": "This takes you to Minecraft's accessibility settings.",
+  "minimenu.options.title_screen.java_edition.name": "Remove JAVA EDITION Subtitle",
+  "minimenu.options.title_screen.singleplayer.name": "Remove Singleplayer Button",
+  "minimenu.options.title_screen.multiplayer.name": "Remove Multiplayer Button",
+  "minimenu.options.title_screen.minecraft_realms.name": "Remove Minecraft Realms Button",
+  "minimenu.options.title_screen.language.name": "Remove Language Button",
+  "minimenu.options.title_screen.accessibility.name": "Remove Accessibility Button",
+  "minimenu.options.title_screen.copyright.name": "Change Copyright Text",
+  "minimenu.options.title_screen.background.name": "Use Classic Background",
 
   "minimenu.options.pause_screen.title": "Pause Screen",
-  "minimenu.options.pause_screen.button.feedback": "Remove Feedback",
-  "minimenu.options.pause_screen.button.report_bugs": "Remove Report Bugs",
-  "minimenu.options.pause_screen.button.player_reporting": "Remove Player Reporting",
-  "minimenu.options.pause_screen.button.open_to_lan": "Remove Open To LAN",
+  "minimenu.options.pause_screen.feedback.name": "Remove Feedback",
+  "minimenu.options.pause_screen.report_bugs.name": "Remove Report Bugs",
+  "minimenu.options.pause_screen.player_reporting.name": "Remove Player Reporting",
+  "minimenu.options.pause_screen.open_to_lan.name": "Remove Open To LAN",
 
   "modmenu.descriptionTranslation.minimenu": "Declutters screens like the title screen through configurable options."
 }

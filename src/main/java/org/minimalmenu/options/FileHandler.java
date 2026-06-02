@@ -41,8 +41,11 @@ public class FileHandler {
     @SerialEntry(value = "removeAccessibility")
     public static boolean REMOVE_ACCESSIBILITY;
 
-//    public static boolean REMOVE_COPYRIGHT;
-//    public static boolean DIRT_BACKGROUND;
+//    @SerialEntry(value = "classicBackground")
+//    public static boolean CLASSIC_BACKGROUND;
+
+//    @SerialEntry(value = "copyrightText")
+//    public static boolean COPYRIGHT_TEXT;
 
     @SerialEntry(value = "removeFeedback")
     public static boolean REMOVE_FEEDBACK;
