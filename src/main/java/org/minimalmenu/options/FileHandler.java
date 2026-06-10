@@ -44,8 +44,8 @@ public class FileHandler {
     @SerialEntry(value = "classicBackground")
     public static boolean CLASSIC_BACKGROUND;
 
-//    @SerialEntry(value = "copyrightText")
-//    public static String COPYRIGHT_TEXT;
+    @SerialEntry(value = "shortenCopyright")
+    public static boolean SHORTEN_COPYRIGHT;
 
     @SerialEntry(value = "removeFeedback")
     public static boolean REMOVE_FEEDBACK;

@@ -37,26 +37,26 @@ public class ScreenFactory {
         // Build title screen options
         titleScreen.option(ButtonOption.createBuilder()
                 .name(Component.translatable("options.hideSplashTexts"))
-                .action((yaclScreen, _) ->
-                        minecraft.setScreen(new AccessibilityOptionsScreen(yaclScreen, minecraft.options))
-                )
-                .text(Component.empty())
                 .description(OptionDescription.of(Component.literal(String.join(" ",
                         Component.translatable("minimenu.options.link", "accessibility").getString(),
                         Component.translatable("minimenu.options.title_screen.splash_texts.description").getString()
                 ))))
+                .text(Component.empty())
+                .action((yaclScreen, _) ->
+                        minecraft.setScreen(new AccessibilityOptionsScreen(yaclScreen, minecraft.options))
+                )
                 .build());
 
         titleScreen.option(ButtonOption.createBuilder()
                 .name(Component.translatable("options.accessibility.panorama_speed"))
-                .action((yaclScreen, _) ->
-                        minecraft.setScreen(new AccessibilityOptionsScreen(yaclScreen, minecraft.options))
-                )
-                .text(Component.empty())
                 .description(OptionDescription.of(Component.literal(String.join(" ",
                         Component.translatable("minimenu.options.link", "accessibility").getString(),
                         Component.translatable("minimenu.options.title_screen.panorama_speed.description").getString()
                 ))))
+                .text(Component.empty())
+                .action((yaclScreen, _) ->
+                        minecraft.setScreen(new AccessibilityOptionsScreen(yaclScreen, minecraft.options))
+                )
                 .build());
 
         titleScreen.option(Option.<Boolean>createBuilder()
@@ -111,15 +111,12 @@ public class ScreenFactory {
                 .controller(TickBoxControllerBuilder::create)
                 .build());
 
-//        titleScreen.option(Option.<String>createBuilder()
-//                .name(Component.translatable("minimenu.options.title_screen.copyright.name"))
-//                .binding(
-//                        Component.translatable("title.credits").getString(),
-//                        () -> FileHandler.COPYRIGHT_TEXT,
-//                        newValue -> FileHandler.COPYRIGHT_TEXT = newValue
-//                )
-//                .controller(StringControllerBuilder::create)
-//                .build());
+        titleScreen.option(Option.<Boolean>createBuilder()
+                .name(Component.translatable("minimenu.options.title_screen.copyright.name"))
+                .description(OptionDescription.of(Component.translatable("minimenu.options.title_screen.copyright.description")))
+                .binding(false, () -> FileHandler.SHORTEN_COPYRIGHT, newValue -> FileHandler.SHORTEN_COPYRIGHT = newValue)
+                .controller(TickBoxControllerBuilder::create)
+                .build());
 
         builder.category(titleScreen.build());
 
