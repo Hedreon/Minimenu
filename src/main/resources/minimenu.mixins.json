@@ -4,7 +4,10 @@
     "compatibilityLevel": "JAVA_25",
     "mixins": [],
     "client": [
+        "AbstractSelectionListMixin",
         "LogoRendererMixin",
+        "ScreenMixin",
+        "TabButtonMixin",
         "TitleScreenMixin"
     ],
     "injectors": {

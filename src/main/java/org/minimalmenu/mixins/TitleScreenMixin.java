@@ -1,6 +1,7 @@
 package org.minimalmenu.mixins;
 
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
@@ -73,6 +74,8 @@ public class TitleScreenMixin {
 
     @Inject(method = "createNormalMenuOptions", at = @At("TAIL"))
     private void createMenu(int topPos, int spacing, CallbackInfoReturnable<Integer> cir) {
+        Minecraft minecraft = Minecraft.getInstance();
+
         List<AbstractWidget> widgetList = Screens.getWidgets((Screen) (Object) this);
 
         for (AbstractWidget widget : widgetList) {
@@ -86,6 +89,8 @@ public class TitleScreenMixin {
 
             if (Minimenu.widgetMatchesKey(widget, "menu.online")) {
                 widget.visible = !FileHandler.REMOVE_REALMS;
+
+                minecraft.options.realmsNotifications().set(!FileHandler.REMOVE_REALMS);
             }
         }
     }

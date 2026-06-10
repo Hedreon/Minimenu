@@ -3,6 +3,7 @@ package org.minimalmenu;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.network.chat.Component;
+import org.apache.commons.lang3.StringUtils;
 import org.minimalmenu.options.FileHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +12,9 @@ import java.util.Objects;
 
 public class Minimenu implements ClientModInitializer {
     public static final String MOD_ID = "minimenu";
+    public static final String MOD_NAME = StringUtils.capitalize(MOD_ID);
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
     @Override
     public void onInitializeClient() {

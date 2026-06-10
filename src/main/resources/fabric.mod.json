@@ -26,7 +26,7 @@
             "org.minimalmenu.Minimenu"
         ],
         "modmenu": [
-            "org.minimalmenu.options.ScreenFactory"
+            "org.minimalmenu.options.Integration"
         ]
     },
     "mixins": [

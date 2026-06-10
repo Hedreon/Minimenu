@@ -1,7 +1,5 @@
 package org.minimalmenu.options;
 
-import com.terraformersmc.modmenu.api.ConfigScreenFactory;
-import com.terraformersmc.modmenu.api.ModMenuApi;
 import dev.isxander.yacl3.api.ConfigCategory;
 import dev.isxander.yacl3.api.ButtonOption;
 import dev.isxander.yacl3.api.Option;
@@ -14,13 +12,8 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.AccessibilityOptionsScreen;
 import net.minecraft.network.chat.Component;
 
-public class ScreenFactory implements ModMenuApi {
-    @Override
-    public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return this::createScreen;
-    }
-
-    public Screen createScreen(Screen parentScreen) {
+public class ScreenFactory {
+    public static Screen createScreen(Screen parentScreen) {
         Minecraft minecraft = Minecraft.getInstance();
 
         var modeStateManager = StateManager.createSimple(
@@ -45,8 +38,8 @@ public class ScreenFactory implements ModMenuApi {
         titleScreen.option(ButtonOption.createBuilder()
                 .name(Component.translatable("options.hideSplashTexts"))
                 .action((yaclScreen, _) ->
-                        minecraft.setScreen(new AccessibilityOptionsScreen(yaclScreen, minecraft.options)
-                ))
+                        minecraft.setScreen(new AccessibilityOptionsScreen(yaclScreen, minecraft.options))
+                )
                 .text(Component.empty())
                 .description(OptionDescription.of(Component.translatable("minimenu.options.title_screen.splash_texts.description")))
                 .build());
@@ -59,20 +52,22 @@ public class ScreenFactory implements ModMenuApi {
 
         titleScreen.option(Option.<Boolean>createBuilder()
                 .name(Component.translatable("minimenu.options.title_screen.singleplayer.name"))
-                .stateManager(new RadioStateManager<>(
-                        modeStateManager,
-                        FileHandler.MODES.Singleplayer,
-                        FileHandler.MODES.None
+                .stateManager(modeStateManager.xmap(
+                        newValue -> newValue == FileHandler.MODES.Singleplayer,
+                        oldValue -> oldValue
+                                ? FileHandler.MODES.Singleplayer
+                                : FileHandler.MODES.None
                 ))
                 .controller(TickBoxControllerBuilder::create)
                 .build());
 
         titleScreen.option(Option.<Boolean>createBuilder()
                 .name(Component.translatable("minimenu.options.title_screen.multiplayer.name"))
-                .stateManager(new RadioStateManager<>(
-                        modeStateManager,
-                        FileHandler.MODES.Multiplayer,
-                        FileHandler.MODES.None
+                .stateManager(modeStateManager.xmap(
+                        newValue -> newValue == FileHandler.MODES.Multiplayer,
+                        oldValue -> oldValue
+                                ? FileHandler.MODES.Multiplayer
+                                : FileHandler.MODES.None
                 ))
                 .controller(TickBoxControllerBuilder::create)
                 .build());
@@ -95,11 +90,11 @@ public class ScreenFactory implements ModMenuApi {
                 .controller(TickBoxControllerBuilder::create)
                 .build());
 
-//        titleScreen.option(Option.<Boolean>createBuilder()
-//                .name(Component.translatable("minimenu.options.title_screen.background.name"))
-//                .binding(false, () -> FileHandler.CLASSIC_BACKGROUND, newValue -> FileHandler.CLASSIC_BACKGROUND = newValue)
-//                .controller(TickBoxControllerBuilder::create)
-//                .build());
+        titleScreen.option(Option.<Boolean>createBuilder()
+                .name(Component.translatable("minimenu.options.title_screen.background.name"))
+                .binding(false, () -> FileHandler.CLASSIC_BACKGROUND, newValue -> FileHandler.CLASSIC_BACKGROUND = newValue)
+                .controller(TickBoxControllerBuilder::create)
+                .build());
 
 //        titleScreen.option(Option.<String>createBuilder()
 //                .name(Component.translatable("minimenu.options.title_screen.copyright.name"))
