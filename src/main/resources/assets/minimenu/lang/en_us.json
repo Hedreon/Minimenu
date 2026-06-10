@@ -1,8 +1,10 @@
 {
   "minimenu.options.title": "Minimenu Options",
+  "minimenu.options.link": "This takes you to Minecraft's %s settings.",
 
   "minimenu.options.title_screen.title": "Title Screen",
-  "minimenu.options.title_screen.splash_texts.description": "This takes you to Minecraft's accessibility settings.",
+  "minimenu.options.title_screen.splash_texts.description": "Set to ON to hide the splash texts.",
+  "minimenu.options.title_screen.panorama_speed.description": "Set to 0% to pause the panorama.",
   "minimenu.options.title_screen.java_edition.name": "Remove JAVA EDITION Subtitle",
   "minimenu.options.title_screen.singleplayer.name": "Remove Singleplayer Button",
   "minimenu.options.title_screen.multiplayer.name": "Remove Multiplayer Button",

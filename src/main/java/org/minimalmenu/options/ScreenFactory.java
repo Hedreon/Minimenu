@@ -41,7 +41,22 @@ public class ScreenFactory {
                         minecraft.setScreen(new AccessibilityOptionsScreen(yaclScreen, minecraft.options))
                 )
                 .text(Component.empty())
-                .description(OptionDescription.of(Component.translatable("minimenu.options.title_screen.splash_texts.description")))
+                .description(OptionDescription.of(Component.literal(String.join(" ",
+                        Component.translatable("minimenu.options.link", "accessibility").getString(),
+                        Component.translatable("minimenu.options.title_screen.splash_texts.description").getString()
+                ))))
+                .build());
+
+        titleScreen.option(ButtonOption.createBuilder()
+                .name(Component.translatable("options.accessibility.panorama_speed"))
+                .action((yaclScreen, _) ->
+                        minecraft.setScreen(new AccessibilityOptionsScreen(yaclScreen, minecraft.options))
+                )
+                .text(Component.empty())
+                .description(OptionDescription.of(Component.literal(String.join(" ",
+                        Component.translatable("minimenu.options.link", "accessibility").getString(),
+                        Component.translatable("minimenu.options.title_screen.panorama_speed.description").getString()
+                ))))
                 .build());
 
         titleScreen.option(Option.<Boolean>createBuilder()
