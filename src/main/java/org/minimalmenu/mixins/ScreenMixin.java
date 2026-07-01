@@ -44,7 +44,7 @@ public class ScreenMixin {
     public static Identifier INWORLD_FOOTER_SEPARATOR = Identifier.withDefaultNamespace("textures/gui/inworld_footer_separator.png");
 
     @Unique
-    private static final Identifier CLASSIC_MENU_BACKGROUND = Identifier.fromNamespaceAndPath(Minimenu.MOD_ID, "textures/gui/menu_background.png");
+    private static final Identifier CLASSIC_MENU_BACKGROUND = Minimenu.identify("textures/gui/menu_background.png");
 
     @WrapMethod(method = "extractPanorama")
     private void shouldRenderPanorama(GuiGraphicsExtractor graphics, float a, Operation<Void> original) {
@@ -62,23 +62,23 @@ public class ScreenMixin {
                 : Identifier.withDefaultNamespace("textures/gui/menu_background.png");
 
         HEADER_SEPARATOR = FileHandler.CLASSIC_BACKGROUND
-                ? Identifier.fromNamespaceAndPath(Minimenu.MOD_ID, "textures/gui/header_separator.png")
+                ? Minimenu.identify("textures/gui/header_separator.png")
                 : Identifier.withDefaultNamespace("textures/gui/header_separator.png");
 
         FOOTER_SEPARATOR = FileHandler.CLASSIC_BACKGROUND
-                ? Identifier.fromNamespaceAndPath(Minimenu.MOD_ID, "textures/gui/footer_separator.png")
+                ? Minimenu.identify("textures/gui/footer_separator.png")
                 : Identifier.withDefaultNamespace("textures/gui/footer_separator.png");
 
         INWORLD_MENU_BACKGROUND = FileHandler.CLASSIC_BACKGROUND
-                ? Identifier.fromNamespaceAndPath(Minimenu.MOD_ID, "textures/gui/inworld_menu_background.png")
+                ? Minimenu.identify("textures/gui/inworld_menu_background.png")
                 : Identifier.withDefaultNamespace("textures/gui/inworld_menu_background.png");
 
         INWORLD_HEADER_SEPARATOR = FileHandler.CLASSIC_BACKGROUND
-                ? Identifier.fromNamespaceAndPath(Minimenu.MOD_ID, "textures/gui/inworld_header_separator.png")
+                ? Minimenu.identify("textures/gui/inworld_header_separator.png")
                 : Identifier.withDefaultNamespace("textures/gui/inworld_header_separator.png");
 
         INWORLD_FOOTER_SEPARATOR = FileHandler.CLASSIC_BACKGROUND
-                ? Identifier.fromNamespaceAndPath(Minimenu.MOD_ID, "textures/gui/inworld_footer_separator.png")
+                ? Minimenu.identify("textures/gui/inworld_footer_separator.png")
                 : Identifier.withDefaultNamespace("textures/gui/inworld_footer_separator.png");
     }
 }

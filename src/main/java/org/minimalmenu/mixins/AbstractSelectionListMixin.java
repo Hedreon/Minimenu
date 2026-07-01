@@ -24,11 +24,11 @@ public class AbstractSelectionListMixin {
     @Inject(method = "extractListBackground", at = @At("HEAD"))
     private void renderListBackground(GuiGraphicsExtractor graphics, CallbackInfo callback) {
         MENU_LIST_BACKGROUND = FileHandler.CLASSIC_BACKGROUND
-                ? Identifier.fromNamespaceAndPath(Minimenu.MOD_ID, "textures/gui/menu_list_background.png")
+                ? Minimenu.identify("textures/gui/menu_list_background.png")
                 : Identifier.withDefaultNamespace("textures/gui/menu_list_background.png");
 
         INWORLD_MENU_LIST_BACKGROUND = FileHandler.CLASSIC_BACKGROUND
-                ? Identifier.fromNamespaceAndPath(Minimenu.MOD_ID, "textures/gui/inworld_menu_list_background.png")
+                ? Minimenu.identify("textures/gui/inworld_menu_list_background.png")
                 : Identifier.withDefaultNamespace("textures/gui/inworld_menu_list_background.png");
     }
 }

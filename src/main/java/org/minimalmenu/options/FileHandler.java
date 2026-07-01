@@ -13,7 +13,7 @@ public class FileHandler {
     public static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("minimenu.json5");
 
     public static ConfigClassHandler<FileHandler> HANDLER = ConfigClassHandler.createBuilder(FileHandler.class)
-            .id(Identifier.fromNamespaceAndPath(Minimenu.MOD_ID, "config"))
+            .id(Minimenu.identify("config"))
             .serializer(options -> GsonConfigSerializerBuilder.create(options)
                     .setPath(CONFIG_PATH)
                     .setJson5(true)

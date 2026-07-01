@@ -27,10 +27,10 @@ public class TabButtonMixin {
     @Inject(method = "extractWidgetRenderState", at = @At("HEAD"))
     private void renderWidget(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo callback) {
         SPRITES = FileHandler.CLASSIC_BACKGROUND ? new WidgetSprites(
-                Identifier.fromNamespaceAndPath(Minimenu.MOD_ID, "widget/tab_selected"),
-                Identifier.fromNamespaceAndPath(Minimenu.MOD_ID, "widget/tab"),
-                Identifier.fromNamespaceAndPath(Minimenu.MOD_ID, "widget/tab_selected_highlighted"),
-                Identifier.fromNamespaceAndPath(Minimenu.MOD_ID, "widget/tab_highlighted")
+                Minimenu.identify("widget/tab_selected"),
+                Minimenu.identify("widget/tab"),
+                Minimenu.identify("widget/tab_selected_highlighted"),
+                Minimenu.identify("widget/tab_highlighted")
         ) : new WidgetSprites(
                 Identifier.withDefaultNamespace("widget/tab_selected"),
                 Identifier.withDefaultNamespace("widget/tab"),

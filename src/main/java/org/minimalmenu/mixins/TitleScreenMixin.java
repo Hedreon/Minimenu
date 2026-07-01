@@ -156,10 +156,10 @@ public class TitleScreenMixin extends Screen {
         String id = Minecraft.checkModStatus().shouldReportAsModified() ? "Modded" : "Vanilla";
 
         // $pr - Information inside the parentheses.
-        Pattern parenthesisPattern = Pattern.compile("\\(([^)]*)\\)");
-        Matcher parenthesisMatcher = parenthesisPattern.matcher(message);
+        Pattern parenthesesPattern = Pattern.compile("\\(([^)]*)\\)");
+        Matcher parenthesesMatcher = parenthesesPattern.matcher(message);
 
-        String pr = parenthesisMatcher.find() ? parenthesisMatcher.group(1) : "";
+        String pr = parenthesesMatcher.find() ? parenthesesMatcher.group(1) : "";
 
         if (versionText.isBlank()) return message;
 

@@ -3,6 +3,7 @@ package org.minimalmenu;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import org.apache.commons.lang3.StringUtils;
 import org.minimalmenu.options.FileHandler;
 import org.slf4j.Logger;
@@ -26,5 +27,9 @@ public class Minimenu implements ClientModInitializer {
         Component translatableKey = Component.translatable(key);
 
         return Objects.equals(widgetMessage, translatableKey);
+    }
+
+    public static Identifier identify(String path) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 }
