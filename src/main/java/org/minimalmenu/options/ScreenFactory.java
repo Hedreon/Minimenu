@@ -6,6 +6,7 @@ import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.OptionDescription;
 import dev.isxander.yacl3.api.StateManager;
 import dev.isxander.yacl3.api.YetAnotherConfigLib;
+import dev.isxander.yacl3.api.controller.StringControllerBuilder;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -14,7 +15,8 @@ import net.minecraft.network.chat.Component;
 
 public class ScreenFactory {
     public static Screen createScreen(Screen parentScreen) {
-        Minecraft minecraft = Minecraft.getInstance();
+        var builder = YetAnotherConfigLib.createBuilder()
+                .title(Component.translatable("minimenu.options.title"));
 
         var modeStateManager = StateManager.createSimple(
                 FileHandler.MODES.None,
@@ -22,8 +24,7 @@ public class ScreenFactory {
                 newValue -> FileHandler.REMOVED_MODE = newValue
         );
 
-        var builder = YetAnotherConfigLib.createBuilder()
-                .title(Component.translatable("minimenu.options.title"));
+        Minecraft minecraft = Minecraft.getInstance();
 
         builder.save(FileHandler.HANDLER::save);
 
@@ -106,15 +107,22 @@ public class ScreenFactory {
                 .build());
 
         titleScreen.option(Option.<Boolean>createBuilder()
-                .name(Component.translatable("minimenu.options.title_screen.background.name"))
-                .binding(false, () -> FileHandler.CLASSIC_BACKGROUND, newValue -> FileHandler.CLASSIC_BACKGROUND = newValue)
-                .controller(TickBoxControllerBuilder::create)
-                .build());
-
-        titleScreen.option(Option.<Boolean>createBuilder()
                 .name(Component.translatable("minimenu.options.title_screen.copyright.name"))
                 .description(OptionDescription.of(Component.translatable("minimenu.options.title_screen.copyright.description")))
                 .binding(false, () -> FileHandler.SHORTEN_COPYRIGHT, newValue -> FileHandler.SHORTEN_COPYRIGHT = newValue)
+                .controller(TickBoxControllerBuilder::create)
+                .build());
+
+        titleScreen.option(Option.<String>createBuilder()
+                .name(Component.translatable("minimenu.options.title_screen.version.name"))
+                .description(OptionDescription.of(Component.translatable("minimenu.options.title_screen.version.description")))
+                .binding("Minecraft $vn", () -> FileHandler.VERSION_TEXT, newValue -> FileHandler.VERSION_TEXT = newValue)
+                .controller(StringControllerBuilder::create)
+                .build());
+
+        titleScreen.option(Option.<Boolean>createBuilder()
+                .name(Component.translatable("minimenu.options.title_screen.background.name"))
+                .binding(false, () -> FileHandler.CLASSIC_BACKGROUND, newValue -> FileHandler.CLASSIC_BACKGROUND = newValue)
                 .controller(TickBoxControllerBuilder::create)
                 .build());
 

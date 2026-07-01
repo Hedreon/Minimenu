@@ -1,6 +1,7 @@
 package org.minimalmenu.mixins;
 
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
+import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -17,6 +18,7 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -33,13 +35,15 @@ public class TitleScreenMixin extends Screen {
 
     @Inject(method = "init", at = @At("HEAD"))
     protected void replaceCopyrightText(CallbackInfo callback) {
-        if (FileHandler.SHORTEN_COPYRIGHT) {
-            COPYRIGHT_TEXT = Component.literal("Copyright Mojang AB");
+        COPYRIGHT_TEXT = FileHandler.SHORTEN_COPYRIGHT
+                ? Component.translatable("minimenu.title.credits")
+                : Component.translatable("title.credits");
 
+        if (FileHandler.SHORTEN_COPYRIGHT) {
             int copyrightWidth = this.font.width(COPYRIGHT_TEXT);
             int copyrightHeight = 10;
             int copyrightX = this.width - copyrightWidth - 2;
-            int copyrightY = this.height + 4;
+            int copyrightY = this.height + 2;
 
             this.addRenderableWidget(new PlainTextButton(
                     copyrightX,
@@ -69,7 +73,8 @@ public class TitleScreenMixin extends Screen {
                 widget.visible = !FileHandler.REMOVE_LANGUAGE;
             }
 
-            if (!Minimenu.widgetMatchesKey(widget, "title.credits")) {
+            if (!Minimenu.widgetMatchesKey(widget, "title.credits")
+                    && !Minimenu.widgetMatchesKey(widget, "minimenu.title.credits")) {
                 if (FileHandler.REMOVED_MODE == FileHandler.MODES.Singleplayer) {
                     if (Minimenu.widgetMatchesKey(widget, "menu.singleplayer")) {
                         offset += spacing;
@@ -102,7 +107,8 @@ public class TitleScreenMixin extends Screen {
         }
 
         for (AbstractWidget movableWidget : widgetList) {
-            if (!Minimenu.widgetMatchesKey(movableWidget, "title.credits")) {
+            if (!Minimenu.widgetMatchesKey(movableWidget, "title.credits")
+                    && !Minimenu.widgetMatchesKey(movableWidget, "minimenu.title.credits")) {
                 movableWidget.setY(movableWidget.getY() + (offset / 2));
             }
         }
@@ -129,5 +135,33 @@ public class TitleScreenMixin extends Screen {
                 minecraft.options.realmsNotifications().set(!FileHandler.REMOVE_REALMS);
             }
         }
+    }
+
+    @ModifyArg(
+            method = "extractRenderState",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;text(Lnet/minecraft/client/gui/Font;Ljava/lang/String;III)V"
+            )
+    )
+    private String modifyVersionString(String message) {
+        String versionText = FileHandler.VERSION_TEXT;
+
+        // $vn - Client version (e.g. 26.1.2).
+        String vn = SharedConstants.getCurrentVersion().name();
+
+        // $id - Client identifier (e.g. Modded).
+        String id = Minecraft.checkModStatus().shouldReportAsModified() ? "Modded" : "";
+
+        // $fid - Forced client identifier (Vanilla or Modded).
+        String fid = Minecraft.checkModStatus().shouldReportAsModified() ? "Modded" : "Vanilla";
+
+        if (versionText.isBlank()) return message;
+
+        versionText = versionText.replace("$vn", vn)
+                .replace("$id", id)
+                .replace("$fid", fid);
+
+        return versionText;
     }
 }
