@@ -23,6 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Mixin(TitleScreen.class)
 public class TitleScreenMixin extends Screen {
@@ -156,11 +158,18 @@ public class TitleScreenMixin extends Screen {
         // $fid - Forced client identifier (Vanilla or Modded).
         String fid = Minecraft.checkModStatus().shouldReportAsModified() ? "Modded" : "Vanilla";
 
+        // $mi - Mod-provided information inside the parentheses.
+        Pattern modPattern = Pattern.compile("\\(([^)]*)\\)");
+        Matcher messageMatcher = modPattern.matcher(message);
+
+        String mi = messageMatcher.find() ? messageMatcher.group(1) : "";
+
         if (versionText.isBlank()) return message;
 
         versionText = versionText.replace("$vn", vn)
                 .replace("$id", id)
-                .replace("$fid", fid);
+                .replace("$fid", fid)
+                .replace("$mi", mi);
 
         return versionText;
     }
