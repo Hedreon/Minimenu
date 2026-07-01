@@ -45,7 +45,7 @@ public class FileHandler {
     public static boolean SHORTEN_COPYRIGHT;
 
     @SerialEntry(value = "versionText")
-    public static String VERSION_TEXT = "Minecraft $vn ($mi)";
+    public static String VERSION_TEXT = "Minecraft $vn ($pr)";
 
     @SerialEntry(value = "classicBackground")
     public static boolean CLASSIC_BACKGROUND;

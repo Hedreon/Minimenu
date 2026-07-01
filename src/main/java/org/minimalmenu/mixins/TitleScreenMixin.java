@@ -152,24 +152,20 @@ public class TitleScreenMixin extends Screen {
         // $vn - Client version (e.g. 26.1.2).
         String vn = SharedConstants.getCurrentVersion().name();
 
-        // $id - Client identifier (e.g. Modded).
-        String id = Minecraft.checkModStatus().shouldReportAsModified() ? "Modded" : "";
+        // $id - Client identifier (Vanilla or Modded).
+        String id = Minecraft.checkModStatus().shouldReportAsModified() ? "Modded" : "Vanilla";
 
-        // $fid - Forced client identifier (Vanilla or Modded).
-        String fid = Minecraft.checkModStatus().shouldReportAsModified() ? "Modded" : "Vanilla";
+        // $pr - Information inside the parentheses.
+        Pattern parenthesisPattern = Pattern.compile("\\(([^)]*)\\)");
+        Matcher parenthesisMatcher = parenthesisPattern.matcher(message);
 
-        // $mi - Mod-provided information inside the parentheses.
-        Pattern modPattern = Pattern.compile("\\(([^)]*)\\)");
-        Matcher messageMatcher = modPattern.matcher(message);
-
-        String mi = messageMatcher.find() ? messageMatcher.group(1) : "";
+        String pr = parenthesisMatcher.find() ? parenthesisMatcher.group(1) : "";
 
         if (versionText.isBlank()) return message;
 
         versionText = versionText.replace("$vn", vn)
                 .replace("$id", id)
-                .replace("$fid", fid)
-                .replace("$mi", mi);
+                .replace("$pr", pr);
 
         return versionText;
     }

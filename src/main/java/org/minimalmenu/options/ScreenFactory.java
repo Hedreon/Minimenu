@@ -116,7 +116,7 @@ public class ScreenFactory {
         titleScreen.option(Option.<String>createBuilder()
                 .name(Component.translatable("minimenu.options.title_screen.version.name"))
                 .description(OptionDescription.of(Component.translatable("minimenu.options.title_screen.version.description")))
-                .binding("Minecraft $vn ($mi)", () -> FileHandler.VERSION_TEXT, newValue -> FileHandler.VERSION_TEXT = newValue)
+                .binding("Minecraft $vn ($pr)", () -> FileHandler.VERSION_TEXT, newValue -> FileHandler.VERSION_TEXT = newValue)
                 .controller(StringControllerBuilder::create)
                 .build());
 

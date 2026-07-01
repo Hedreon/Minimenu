@@ -16,7 +16,7 @@
   "minimenu.options.title_screen.copyright.name": "Shorten Copyright Text",
   "minimenu.options.title_screen.copyright.description": "For legal reasons, we can only allow you to remove the \"Do not distribute!\" part of the text, not to remove the entirety of it.",
   "minimenu.options.title_screen.version.name": "Customize Version Text",
-  "minimenu.options.title_screen.version.description": "Syntax guide:\n$vn - Client version (e.g. 26.1.2).\n$id - Client identifier (e.g. Modded). Prepend 'f' to become '$fid' to force a non-empty string.\n$mi - Mod-provided information inside the parentheses.",
+  "minimenu.options.title_screen.version.description": "Syntax guide:\n$vn - Client version (e.g. 26.1.2).\n$id - Client identifier (Vanilla or Modded).\n$pr - Information inside the parentheses.",
   "minimenu.options.title_screen.background.name": "Use Classic Background",
 
   "minimenu.options.pause_screen.title": "Pause Screen",
