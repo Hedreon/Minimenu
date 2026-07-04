@@ -121,17 +121,16 @@ public class ScreenFactory {
                                 .binding(false, () -> FileHandler.REMOVE_EDITION, newValue -> FileHandler.REMOVE_EDITION = newValue)
                                 .controller(TickBoxControllerBuilder::create)
                                 .build(),
-                        Option.<Boolean>createBuilder()
-                                .name(Component.translatable("minimenu.options.title_screen.copyright.name"))
-                                .description(OptionDescription.of(Component.translatable("minimenu.options.title_screen.copyright.description")))
-                                .binding(false, () -> FileHandler.SHORTEN_COPYRIGHT, newValue -> FileHandler.SHORTEN_COPYRIGHT = newValue)
-                                .controller(TickBoxControllerBuilder::create)
-                                .build(),
                         Option.<String>createBuilder()
                                 .name(Component.translatable("minimenu.options.title_screen.version.name"))
                                 .description(OptionDescription.of(Component.translatable("minimenu.options.title_screen.version.description")))
                                 .binding("Minecraft $vn ($pr)", () -> FileHandler.VERSION_TEXT, newValue -> FileHandler.VERSION_TEXT = newValue)
                                 .controller(StringControllerBuilder::create)
+                                .build(),
+                        Option.<Boolean>createBuilder()
+                                .name(Component.translatable("minimenu.options.title_screen.copyright.name"))
+                                .binding(false, () -> FileHandler.REMOVE_COPYRIGHT, newValue -> FileHandler.REMOVE_COPYRIGHT = newValue)
+                                .controller(TickBoxControllerBuilder::create)
                                 .build()
                 ))
                 .build());

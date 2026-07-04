@@ -43,11 +43,11 @@ public class FileHandler {
     @SerialEntry(value = "removeAccessibility")
     public static boolean REMOVE_ACCESSIBILITY;
 
-    @SerialEntry(value = "shortenCopyright")
-    public static boolean SHORTEN_COPYRIGHT;
-
     @SerialEntry(value = "versionText")
     public static String VERSION_TEXT = "Minecraft $vn ($pr)";
+
+    @SerialEntry(value = "removeCopyright")
+    public static boolean REMOVE_COPYRIGHT;
 
     @SerialEntry(value = "classicBackground")
     public static boolean CLASSIC_BACKGROUND;

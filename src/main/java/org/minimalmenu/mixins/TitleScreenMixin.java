@@ -1,20 +1,19 @@
 package org.minimalmenu.mixins;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.PlainTextButton;
-import net.minecraft.client.gui.screens.CreditsAndAttributionScreen;
+import net.minecraft.client.gui.components.SpriteIconButton;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
 import org.minimalmenu.Minimenu;
 import org.minimalmenu.options.FileHandler;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,44 +21,18 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Mixin(TitleScreen.class)
 public abstract class TitleScreenMixin extends Screen {
-    protected TitleScreenMixin(Minecraft minecraft, Font font, Component title) {
-        super(minecraft, font, title);
+    protected TitleScreenMixin(Component title) {
+        super(title);
     }
-
-    @Shadow @Final @Mutable
-    private static Component COPYRIGHT_TEXT = Component.translatable("title.credits");
 
     @Shadow protected abstract int getHorizontalPosition(int currentButton, int numberOfButtons, int buttonWidth);
-
-    @Inject(method = "init", at = @At("HEAD"))
-    protected void replaceCopyrightText(CallbackInfo callback) {
-        COPYRIGHT_TEXT = FileHandler.SHORTEN_COPYRIGHT
-                ? Component.translatable("minimenu.title.credits")
-                : Component.translatable("title.credits");
-
-        if (FileHandler.SHORTEN_COPYRIGHT) {
-            int copyrightWidth = this.font.width(COPYRIGHT_TEXT);
-            int copyrightHeight = 10;
-            int copyrightX = this.width - copyrightWidth - 2;
-            int copyrightY = this.height + 2;
-
-            this.addRenderableWidget(new PlainTextButton(
-                    copyrightX,
-                    copyrightY,
-                    copyrightWidth,
-                    copyrightHeight,
-                    COPYRIGHT_TEXT,
-                    (_) -> this.minecraft.gui.setScreen(new CreditsAndAttributionScreen(this)),
-                    this.font
-            ));
-        }
-    }
 
     @Inject(method = "init", at = @At("TAIL"))
     protected void initializeWidgets(CallbackInfo callback) {
@@ -67,35 +40,23 @@ public abstract class TitleScreenMixin extends Screen {
         int offset = 0;
 
         List<AbstractWidget> widgetList = Screens.getWidgets(this);
+        List<AbstractWidget> iconWidgetList = new ArrayList<>();
 
         for (AbstractWidget widget : widgetList) {
             if (Minimenu.widgetMatchesKey(widget, "gui.friends.open")) {
                 widget.visible = !FileHandler.REMOVE_FRIENDS;
-            }
 
-            if (Minimenu.widgetMatchesKey(widget, "options.language")) {
-                widget.visible = !FileHandler.REMOVE_LANGUAGE;
-            }
-
-            if (Minimenu.widgetMatchesKey(widget, "options.accessibility")) {
-                widget.visible = !FileHandler.REMOVE_ACCESSIBILITY;
-            }
-
-            int numberOfButtons = (FileHandler.REMOVE_FRIENDS ? 0 : 1) +
-                    (FileHandler.REMOVE_LANGUAGE ? 0 : 1) +
-                    (FileHandler.REMOVE_ACCESSIBILITY ? 0 : 1);
-
-            if (Minimenu.widgetMatchesKey(widget, "gui.friends.open")) {
-                widget.setX(getHorizontalPosition(1, numberOfButtons, 20));
+                if (!FileHandler.REMOVE_FRIENDS) iconWidgetList.add(widget);
             } else if (Minimenu.widgetMatchesKey(widget, "options.language")) {
-                int currentButton = FileHandler.REMOVE_FRIENDS ? 1 : 2;
+                widget.visible = !FileHandler.REMOVE_LANGUAGE;
 
-                widget.setX(getHorizontalPosition(currentButton, numberOfButtons, 20));
+                if (!FileHandler.REMOVE_LANGUAGE) iconWidgetList.add(widget);
             } else if (Minimenu.widgetMatchesKey(widget, "options.accessibility")) {
-                int currentButton = (FileHandler.REMOVE_FRIENDS ? 0 : 1) +
-                        (FileHandler.REMOVE_LANGUAGE ? 0 : 1) + 1;
+                widget.visible = !FileHandler.REMOVE_ACCESSIBILITY;
 
-                widget.setX(getHorizontalPosition(currentButton, numberOfButtons, 20));
+                if (!FileHandler.REMOVE_ACCESSIBILITY) iconWidgetList.add(widget);
+            } else if (widget instanceof SpriteIconButton iconButton && iconButton.getWidth() == 20 && widget.visible) {
+                iconWidgetList.add(widget);
             }
 
             if (!Minimenu.widgetMatchesKey(widget, "title.credits")
@@ -135,6 +96,16 @@ public abstract class TitleScreenMixin extends Screen {
             if (!Minimenu.widgetMatchesKey(movableWidget, "title.credits")
                     && !Minimenu.widgetMatchesKey(movableWidget, "minimenu.title.credits")) {
                 movableWidget.setY(movableWidget.getY() + (offset / 2));
+            }
+        }
+
+        if (!iconWidgetList.isEmpty()) {
+            int totalIconWidgets = iconWidgetList.size();
+
+            for (int iconWidgetIndex = 0; iconWidgetIndex < totalIconWidgets; iconWidgetIndex++) {
+                AbstractWidget iconWidget = iconWidgetList.get(iconWidgetIndex);
+
+                iconWidget.setX(getHorizontalPosition(iconWidgetIndex + 1, totalIconWidgets, 20));
             }
         }
     }
@@ -191,5 +162,16 @@ public abstract class TitleScreenMixin extends Screen {
                 .replace("$pr", pr);
 
         return versionText;
+    }
+
+    @WrapOperation(
+            method = "init",
+            at = @At(
+                    value = "INVOKE:LAST",
+                    target = "Lnet/minecraft/client/gui/screens/TitleScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;"
+            )
+    )
+    private GuiEventListener shouldAddCopyright(TitleScreen instance, GuiEventListener eventListener, Operation<GuiEventListener> original) {
+        return !FileHandler.REMOVE_COPYRIGHT ? original.call(instance, eventListener) : null;
     }
 }
