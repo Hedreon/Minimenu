@@ -27,13 +27,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Mixin(TitleScreen.class)
-public class TitleScreenMixin extends Screen {
+public abstract class TitleScreenMixin extends Screen {
     protected TitleScreenMixin(Minecraft minecraft, Font font, Component title) {
         super(minecraft, font, title);
     }
 
     @Shadow @Final @Mutable
     private static Component COPYRIGHT_TEXT = Component.translatable("title.credits");
+
+    @Shadow protected abstract int getHorizontalPosition(int currentButton, int numberOfButtons, int buttonWidth);
 
     @Inject(method = "init", at = @At("HEAD"))
     protected void replaceCopyrightText(CallbackInfo callback) {
@@ -53,7 +55,7 @@ public class TitleScreenMixin extends Screen {
                     copyrightWidth,
                     copyrightHeight,
                     COPYRIGHT_TEXT,
-                    (_) -> this.minecraft.setScreen(new CreditsAndAttributionScreen(this)),
+                    (_) -> this.minecraft.gui.setScreen(new CreditsAndAttributionScreen(this)),
                     this.font
             ));
         }
@@ -67,12 +69,33 @@ public class TitleScreenMixin extends Screen {
         List<AbstractWidget> widgetList = Screens.getWidgets(this);
 
         for (AbstractWidget widget : widgetList) {
-            if (Minimenu.widgetMatchesKey(widget, "options.accessibility")) {
-                widget.visible = !FileHandler.REMOVE_ACCESSIBILITY;
+            if (Minimenu.widgetMatchesKey(widget, "gui.friends.open")) {
+                widget.visible = !FileHandler.REMOVE_FRIENDS;
             }
 
             if (Minimenu.widgetMatchesKey(widget, "options.language")) {
                 widget.visible = !FileHandler.REMOVE_LANGUAGE;
+            }
+
+            if (Minimenu.widgetMatchesKey(widget, "options.accessibility")) {
+                widget.visible = !FileHandler.REMOVE_ACCESSIBILITY;
+            }
+
+            int numberOfButtons = (FileHandler.REMOVE_FRIENDS ? 0 : 1) +
+                    (FileHandler.REMOVE_LANGUAGE ? 0 : 1) +
+                    (FileHandler.REMOVE_ACCESSIBILITY ? 0 : 1);
+
+            if (Minimenu.widgetMatchesKey(widget, "gui.friends.open")) {
+                widget.setX(getHorizontalPosition(1, numberOfButtons, 20));
+            } else if (Minimenu.widgetMatchesKey(widget, "options.language")) {
+                int currentButton = FileHandler.REMOVE_FRIENDS ? 1 : 2;
+
+                widget.setX(getHorizontalPosition(currentButton, numberOfButtons, 20));
+            } else if (Minimenu.widgetMatchesKey(widget, "options.accessibility")) {
+                int currentButton = (FileHandler.REMOVE_FRIENDS ? 0 : 1) +
+                        (FileHandler.REMOVE_LANGUAGE ? 0 : 1) + 1;
+
+                widget.setX(getHorizontalPosition(currentButton, numberOfButtons, 20));
             }
 
             if (!Minimenu.widgetMatchesKey(widget, "title.credits")

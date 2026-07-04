@@ -4,7 +4,6 @@ import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.resources.Identifier;
 import org.minimalmenu.Minimenu;
 
 import java.nio.file.Path;
@@ -34,6 +33,9 @@ public class FileHandler {
 
     @SerialEntry(value = "removeRealms")
     public static boolean REMOVE_REALMS;
+
+    @SerialEntry(value = "removeFriends")
+    public static boolean REMOVE_FRIENDS;
 
     @SerialEntry(value = "removeLanguage")
     public static boolean REMOVE_LANGUAGE;

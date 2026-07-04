@@ -4,6 +4,11 @@
   "minimenu.options.title": "Minimenu Options",
   "minimenu.options.link": "This takes you to Minecraft's %s settings.",
 
+  "minimenu.options.group.minecraft.title": "Minecraft Options",
+  "minimenu.options.group.buttons.title": "Buttons",
+  "minimenu.options.group.texts.title": "Texts",
+  "minimenu.options.group.miscellaneous.title": "Miscellaneous",
+
   "minimenu.options.title_screen.title": "Title Screen",
   "minimenu.options.title_screen.splash_texts.description": "Set to ON to hide the splash texts.",
   "minimenu.options.title_screen.panorama_speed.description": "Set to 0% to pause the panorama.",
@@ -11,6 +16,7 @@
   "minimenu.options.title_screen.singleplayer.name": "Remove Singleplayer Button",
   "minimenu.options.title_screen.multiplayer.name": "Remove Multiplayer Button",
   "minimenu.options.title_screen.minecraft_realms.name": "Remove Minecraft Realms Button",
+  "minimenu.options.title_screen.friends.name": "Remove Friends Button",
   "minimenu.options.title_screen.language.name": "Remove Language Button",
   "minimenu.options.title_screen.accessibility.name": "Remove Accessibility Button",
   "minimenu.options.title_screen.copyright.name": "Shorten Copyright Text",

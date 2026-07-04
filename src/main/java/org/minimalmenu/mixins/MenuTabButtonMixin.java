@@ -1,8 +1,8 @@
 package org.minimalmenu.mixins;
 
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.components.TabButton;
 import net.minecraft.client.gui.components.WidgetSprites;
+import net.minecraft.client.gui.components.tabs.MenuTabBar;
 import net.minecraft.resources.Identifier;
 import org.minimalmenu.Minimenu;
 import org.minimalmenu.options.FileHandler;
@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(TabButton.class)
-public class TabButtonMixin {
+@Mixin(MenuTabBar.MenuTabButton.class)
+public class MenuTabButtonMixin {
     @Shadow @Final @Mutable
     private static WidgetSprites SPRITES = new WidgetSprites(
             Identifier.withDefaultNamespace("widget/tab_selected"),
