@@ -4,6 +4,7 @@ import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.network.chat.Component;
 import org.minimalmenu.Minimenu;
 
 import java.nio.file.Path;
@@ -46,8 +47,8 @@ public class FileHandler {
     @SerialEntry(value = "versionText")
     public static String VERSION_TEXT = "Minecraft $vn ($pr)";
 
-    @SerialEntry(value = "removeCopyright")
-    public static boolean REMOVE_COPYRIGHT;
+    @SerialEntry(value = "copyrightText")
+    public static String COPYRIGHT_TEXT = Component.translatable("title.credits").getString();
 
     @SerialEntry(value = "classicBackground")
     public static boolean CLASSIC_BACKGROUND;

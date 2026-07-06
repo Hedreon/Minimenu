@@ -127,10 +127,10 @@ public class ScreenFactory {
                                 .binding("Minecraft $vn ($pr)", () -> FileHandler.VERSION_TEXT, newValue -> FileHandler.VERSION_TEXT = newValue)
                                 .controller(StringControllerBuilder::create)
                                 .build(),
-                        Option.<Boolean>createBuilder()
+                        Option.<String>createBuilder()
                                 .name(Component.translatable("minimenu.options.title_screen.copyright.name"))
-                                .binding(false, () -> FileHandler.REMOVE_COPYRIGHT, newValue -> FileHandler.REMOVE_COPYRIGHT = newValue)
-                                .controller(TickBoxControllerBuilder::create)
+                                .binding(Component.translatable("title.credits").getString(), () -> FileHandler.COPYRIGHT_TEXT, newValue -> FileHandler.COPYRIGHT_TEXT = newValue)
+                                .controller(StringControllerBuilder::create)
                                 .build()
                 ))
                 .build());

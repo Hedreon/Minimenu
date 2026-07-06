@@ -5,9 +5,12 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.PlainTextButton;
 import net.minecraft.client.gui.components.SpriteIconButton;
 import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.screens.CreditsAndAttributionScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
@@ -15,6 +18,7 @@ import org.minimalmenu.Minimenu;
 import org.minimalmenu.options.FileHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -28,11 +32,15 @@ import java.util.regex.Pattern;
 
 @Mixin(TitleScreen.class)
 public abstract class TitleScreenMixin extends Screen {
-    protected TitleScreenMixin(Component title) {
-        super(title);
+    protected TitleScreenMixin(Minecraft minecraft, Font font, Component title) {
+        super(minecraft, font, title);
     }
 
-    @Shadow protected abstract int getHorizontalPosition(int currentButton, int numberOfButtons, int buttonWidth);
+    @Unique
+    private PlainTextButton copyrightButton = null;
+
+    @Shadow
+    protected abstract int getHorizontalPosition(int currentButton, int numberOfButtons, int buttonWidth);
 
     @Inject(method = "init", at = @At("TAIL"))
     protected void initializeWidgets(CallbackInfo callback) {
@@ -59,8 +67,7 @@ public abstract class TitleScreenMixin extends Screen {
                 iconWidgetList.add(widget);
             }
 
-            if (!Minimenu.widgetMatchesKey(widget, "title.credits")
-                    && !Minimenu.widgetMatchesKey(widget, "minimenu.title.credits")) {
+            if (widget != copyrightButton) {
                 if (FileHandler.REMOVED_MODE == FileHandler.MODES.Singleplayer) {
                     if (Minimenu.widgetMatchesKey(widget, "menu.singleplayer")) {
                         offset += spacing;
@@ -93,8 +100,7 @@ public abstract class TitleScreenMixin extends Screen {
         }
 
         for (AbstractWidget movableWidget : widgetList) {
-            if (!Minimenu.widgetMatchesKey(movableWidget, "title.credits")
-                    && !Minimenu.widgetMatchesKey(movableWidget, "minimenu.title.credits")) {
+            if (movableWidget != copyrightButton) {
                 movableWidget.setY(movableWidget.getY() + (offset / 2));
             }
         }
@@ -107,6 +113,31 @@ public abstract class TitleScreenMixin extends Screen {
 
                 iconWidget.setX(getHorizontalPosition(iconWidgetIndex + 1, totalIconWidgets, 20));
             }
+        }
+    }
+
+    @Inject(method = "init", at = @At("HEAD"))
+    protected void modifyCopyrightString(CallbackInfo callback) {
+        if (!FileHandler.COPYRIGHT_TEXT.isBlank()) {
+            Component copyrightText = Component.literal(FileHandler.COPYRIGHT_TEXT);
+
+            int copyrightWidth = this.font.width(copyrightText);
+            int copyrightHeight = 10;
+
+            int copyrightX = this.width - copyrightWidth - 2;
+            int copyrightY = this.height + 2;
+
+            copyrightButton = new PlainTextButton(
+                    copyrightX,
+                    copyrightY,
+                    copyrightWidth,
+                    copyrightHeight,
+                    copyrightText,
+                    (_) -> this.minecraft.gui.setScreen(new CreditsAndAttributionScreen(this)),
+                    this.font
+            );
+
+            this.addRenderableWidget(copyrightButton);
         }
     }
 
@@ -171,7 +202,7 @@ public abstract class TitleScreenMixin extends Screen {
                     target = "Lnet/minecraft/client/gui/screens/TitleScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;"
             )
     )
-    private GuiEventListener shouldAddCopyright(TitleScreen instance, GuiEventListener eventListener, Operation<GuiEventListener> original) {
-        return !FileHandler.REMOVE_COPYRIGHT ? original.call(instance, eventListener) : null;
+    private GuiEventListener removeOriginalCopyright(TitleScreen instance, GuiEventListener eventListener, Operation<GuiEventListener> original) {
+        return null;
     }
 }
