@@ -32,11 +32,26 @@ public class ScreenFactory {
         builder.save(FileHandler.HANDLER::save);
 
         // Create categories
+        var general = ConfigCategory.createBuilder()
+                .name(Component.translatable("minimenu.options.general.title"));
+
         var titleScreen = ConfigCategory.createBuilder()
                 .name(Component.translatable("minimenu.options.title_screen.title"));
 
         var pauseScreen = ConfigCategory.createBuilder()
                 .name(Component.translatable("minimenu.options.pause_screen.title"));
+
+        // Build general options
+        general.group(OptionGroup.createBuilder()
+                .name(Component.translatable("minimenu.options.group.backgrounds.title"))
+                .option(Option.<Boolean>createBuilder()
+                        .name(Component.translatable("minimenu.options.general.background.name"))
+                        .binding(false, () -> FileHandler.CLASSIC_BACKGROUND, newValue -> FileHandler.CLASSIC_BACKGROUND = newValue)
+                        .controller(TickBoxControllerBuilder::create)
+                        .build())
+                .build());
+
+        builder.category(general.build());
 
         // Build title screen options
         titleScreen.group(OptionGroup.createBuilder()
@@ -133,15 +148,6 @@ public class ScreenFactory {
                                 .controller(StringControllerBuilder::create)
                                 .build()
                 ))
-                .build());
-
-        titleScreen.group(OptionGroup.createBuilder()
-                .name(Component.translatable("minimenu.options.group.miscellaneous.title"))
-                .option(Option.<Boolean>createBuilder()
-                        .name(Component.translatable("minimenu.options.title_screen.background.name"))
-                        .binding(false, () -> FileHandler.CLASSIC_BACKGROUND, newValue -> FileHandler.CLASSIC_BACKGROUND = newValue)
-                        .controller(TickBoxControllerBuilder::create)
-                        .build())
                 .build());
 
         builder.category(titleScreen.build());

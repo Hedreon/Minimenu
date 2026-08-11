@@ -1,8 +1,8 @@
 # Linux script should use LF
-/gradlew                                 text eol=lf
+/gradlew                                  text eol=lf
 
 # Windows scripts should use CRLF
-*.bat                                    text eol=crlf
+*.bat                                     text eol=crlf
 
 # Gradle wrapper properties should use LF
-gradle/wrapper/gradle-wrapper.properties text eol=lf
+gradle/wrapper/gradle-wrapper.properties  text eol=lf

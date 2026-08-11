@@ -4,6 +4,10 @@
     "version": "${version}",
     "name": "Minimenu",
     "description": "Declutters screens like the title screen through configurable options.",
+    "contact": {
+        "issues" : "https://github.com/Hedreon/Minimenu/issues",
+        "sources": "https://github.com/Hedreon/Minimenu"
+    },
     "authors": [
         "TomB_134",
         "Hedreon"
@@ -14,10 +18,6 @@
         "huiki",
         "TGODiamond"
     ],
-    "contact": {
-        "issues" : "https://github.com/Hedreon/Minimenu/issues",
-        "sources": "https://github.com/Hedreon/Minimenu"
-    },
     "license": "MIT",
     "icon": "assets/minimenu/icon.png",
     "environment": "client",
@@ -36,8 +36,7 @@
         "java": ">=25",
         "minecraft": "~${minecraft_version}",
         "fabricloader": ">=${loader_version}",
-        "fabric-api": ">=${fabric_api_version}",
-        "modmenu": ">=${mod_menu_version}",
+        "fabric-api": ">=${api_version}",
         "yet_another_config_lib_v3": ">=${yacl_version}"
     }
 }

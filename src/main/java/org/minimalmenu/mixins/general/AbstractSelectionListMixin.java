@@ -1,4 +1,4 @@
-package org.minimalmenu.mixins;
+package org.minimalmenu.mixins.general;
 
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSelectionList;

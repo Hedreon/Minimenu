@@ -1,4 +1,4 @@
-package org.minimalmenu.mixins;
+package org.minimalmenu.mixins.general;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;

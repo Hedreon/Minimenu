@@ -3,11 +3,11 @@
     "package": "org.minimalmenu.mixins",
     "compatibilityLevel": "JAVA_25",
     "client": [
-        "AbstractSelectionListMixin",
-        "LogoRendererMixin",
-        "MenuTabButtonMixin",
-        "ScreenMixin",
-        "TitleScreenMixin"
+        "general.AbstractSelectionListMixin",
+        "general.MenuTabButtonMixin",
+        "general.ScreenMixin",
+        "title_screen.LogoRendererMixin",
+        "title_screen.TitleScreenMixin"
     ],
     "injectors": {
         "defaultRequire": 1

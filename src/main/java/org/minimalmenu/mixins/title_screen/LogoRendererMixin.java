@@ -1,4 +1,4 @@
-package org.minimalmenu.mixins;
+package org.minimalmenu.mixins.title_screen;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.mojang.blaze3d.pipeline.RenderPipeline;

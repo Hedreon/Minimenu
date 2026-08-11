@@ -8,7 +8,9 @@ classes/
 *.launch
 
 # IDEA
-.idea/
+.idea/*
+!.idea/dictionaries/
+!.idea/runConfigurations/Minecraft_Client.xml
 *.iml
 *.ipr
 *.iws
