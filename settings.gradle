@@ -1,12 +1,21 @@
 pluginManagement {
 	repositories {
 		maven {
+			name = "Architectury"
+			url = uri("https://maven.architectury.dev/")
+		}
+		maven {
 			name = "Fabric"
 			url = uri("https://maven.fabricmc.net/")
 		}
-		mavenCentral()
+		maven {
+			name = "Forge"
+			url = uri("https://maven.minecraftforge.net/")
+		}
 		gradlePluginPortal()
 	}
 }
+
+include("common", "fabric", "neoforge")
 
 rootProject.name = "minimenu"

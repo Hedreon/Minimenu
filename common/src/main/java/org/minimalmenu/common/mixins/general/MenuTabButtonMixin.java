@@ -1,0 +1,41 @@
+package org.minimalmenu.common.mixins.general;
+
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.WidgetSprites;
+import net.minecraft.client.gui.components.tabs.MenuTabBar;
+import net.minecraft.resources.Identifier;
+import org.minimalmenu.common.MinimenuCommon;
+import org.minimalmenu.common.options.FileHandler;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(MenuTabBar.MenuTabButton.class)
+public class MenuTabButtonMixin {
+    @Shadow @Final @Mutable
+    private static WidgetSprites SPRITES = new WidgetSprites(
+            Identifier.withDefaultNamespace("widget/tab_selected"),
+            Identifier.withDefaultNamespace("widget/tab"),
+            Identifier.withDefaultNamespace("widget/tab_selected_highlighted"),
+            Identifier.withDefaultNamespace("widget/tab_highlighted")
+    );
+
+    @Inject(method = "extractWidgetRenderState", at = @At("HEAD"))
+    private void renderWidget(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo callback) {
+        SPRITES = FileHandler.CLASSIC_BACKGROUND ? new WidgetSprites(
+                MinimenuCommon.identify("widget/tab_selected"),
+                MinimenuCommon.identify("widget/tab"),
+                MinimenuCommon.identify("widget/tab_selected_highlighted"),
+                MinimenuCommon.identify("widget/tab_highlighted")
+        ) : new WidgetSprites(
+                Identifier.withDefaultNamespace("widget/tab_selected"),
+                Identifier.withDefaultNamespace("widget/tab"),
+                Identifier.withDefaultNamespace("widget/tab_selected_highlighted"),
+                Identifier.withDefaultNamespace("widget/tab_highlighted")
+        );
+    }
+}

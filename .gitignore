@@ -10,7 +10,6 @@ classes/
 # IDEA
 .idea/*
 !.idea/dictionaries/
-!.idea/runConfigurations/Minecraft_Client.xml
 *.iml
 *.ipr
 *.iws
