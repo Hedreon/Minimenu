@@ -12,13 +12,12 @@ import java.nio.file.Path;
 public class FileHandler {
     private static final Path CONFIG_DIRECTORY = Minecraft.getInstance().gameDirectory.toPath().resolve("config");
 
-    public static final Path CONFIG_FILE = CONFIG_DIRECTORY.resolve("minimenu.json5");
+    public static final Path CONFIG_FILE = CONFIG_DIRECTORY.resolve("minimenu.json");
 
     public static ConfigClassHandler<FileHandler> HANDLER = ConfigClassHandler.createBuilder(FileHandler.class)
             .id(MinimenuCommon.identify("config"))
             .serializer(options -> GsonConfigSerializerBuilder.create(options)
                     .setPath(CONFIG_FILE)
-                    .setJson5(true)
                     .build())
             .build();
 
@@ -28,39 +27,39 @@ public class FileHandler {
         None
     }
 
-    @SerialEntry(value = "removeEdition")
+    @SerialEntry
     public static boolean REMOVE_EDITION;
 
-    @SerialEntry(value = "removedMode")
+    @SerialEntry
     public static MODES REMOVED_MODE = MODES.None;
 
-    @SerialEntry(value = "removeRealms")
+    @SerialEntry
     public static boolean REMOVE_REALMS;
 
-    @SerialEntry(value = "removeFriends")
+    @SerialEntry
     public static boolean REMOVE_FRIENDS;
 
-    @SerialEntry(value = "removeLanguage")
+    @SerialEntry
     public static boolean REMOVE_LANGUAGE;
 
-    @SerialEntry(value = "removeAccessibility")
+    @SerialEntry
     public static boolean REMOVE_ACCESSIBILITY;
 
-    @SerialEntry(value = "copyrightText")
+    @SerialEntry
     public static String COPYRIGHT_TEXT = Component.translatable("title.credits").getString();
 
-    @SerialEntry(value = "classicBackground")
+    @SerialEntry
     public static boolean CLASSIC_BACKGROUND;
 
-    @SerialEntry(value = "removeFeedback")
+    @SerialEntry
     public static boolean REMOVE_FEEDBACK;
 
-    @SerialEntry(value = "removeBugs")
+    @SerialEntry
     public static boolean REMOVE_BUGS;
 
-    @SerialEntry(value = "removeReporting")
+    @SerialEntry
     public static boolean REMOVE_REPORTING;
 
-    @SerialEntry(value = "removeLAN")
+    @SerialEntry
     public static boolean REMOVE_LAN;
 }
