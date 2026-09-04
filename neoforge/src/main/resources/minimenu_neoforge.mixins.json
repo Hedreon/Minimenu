@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "package": "org.minimalmenu.neoforge.mixins",
+    "compatibilityLevel": "JAVA_25",
+    "client": [
+        "title_screen.TitleScreenMixinNeoForge"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "overwrites": {
+        "requireAnnotations": true
+    }
+}

@@ -30,7 +30,8 @@
         ]
     },
     "mixins": [
-        "minimenu.mixins.json"
+        "minimenu_common.mixins.json",
+        "minimenu_fabric.mixins.json"
     ],
     "depends": {
         "java": ">=25",

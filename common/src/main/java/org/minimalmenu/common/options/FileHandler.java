@@ -45,6 +45,9 @@ public class FileHandler {
     public static boolean REMOVE_ACCESSIBILITY;
 
     @SerialEntry
+    public static boolean REMOVE_VERSION;
+
+    @SerialEntry
     public static boolean REMOVE_COPYRIGHT;
 
     @SerialEntry

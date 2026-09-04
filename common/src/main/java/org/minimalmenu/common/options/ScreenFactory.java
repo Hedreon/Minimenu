@@ -138,6 +138,11 @@ public class ScreenFactory {
                                 .controller(TickBoxControllerBuilder::create)
                                 .build(),
                         Option.<Boolean>createBuilder()
+                                .name(Component.translatable("minimenu.options.title_screen.version.name"))
+                                .binding(false, () -> FileHandler.REMOVE_VERSION, newValue -> FileHandler.REMOVE_VERSION = newValue)
+                                .controller(TickBoxControllerBuilder::create)
+                                .build(),
+                        Option.<Boolean>createBuilder()
                                 .name(Component.translatable("minimenu.options.title_screen.copyright.name"))
                                 .binding(false, () -> FileHandler.REMOVE_COPYRIGHT, newValue -> FileHandler.REMOVE_COPYRIGHT = newValue)
                                 .controller(TickBoxControllerBuilder::create)

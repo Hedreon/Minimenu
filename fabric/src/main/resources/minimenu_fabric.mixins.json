@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "package": "org.minimalmenu.fabric.mixins",
+    "compatibilityLevel": "JAVA_25",
+    "client": [
+        "title_screen.TitleScreenMixinFabric"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "overwrites": {
+        "requireAnnotations": true
+    }
+}

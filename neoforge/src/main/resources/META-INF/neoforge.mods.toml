@@ -14,7 +14,10 @@ authors = "TomB_134, Hedreon"
 displayURL = "https://github.com/Hedreon/Minimenu"
 
 [[mixins]]
-config = "minimenu.mixins.json"
+config = "minimenu_common.mixins.json"
+
+[[mixins]]
+config = "minimenu_neoforge.mixins.json"
 
 [features.minimenu]
 javaVersion = "[25,)"
