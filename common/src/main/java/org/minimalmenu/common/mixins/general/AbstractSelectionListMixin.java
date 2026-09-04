@@ -3,7 +3,7 @@ package org.minimalmenu.common.mixins.general;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.resources.Identifier;
-import org.minimalmenu.common.MinimenuCommon;
+import org.minimalmenu.common.Minimenu;
 import org.minimalmenu.common.options.FileHandler;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,11 +24,11 @@ public class AbstractSelectionListMixin {
     @Inject(method = "extractListBackground", at = @At("HEAD"))
     private void renderListBackground(GuiGraphicsExtractor graphics, CallbackInfo callback) {
         MENU_LIST_BACKGROUND = FileHandler.CLASSIC_BACKGROUND
-                ? MinimenuCommon.identify("textures/gui/menu_list_background.png")
+                ? Minimenu.identify("textures/gui/menu_list_background.png")
                 : Identifier.withDefaultNamespace("textures/gui/menu_list_background.png");
 
         INWORLD_MENU_LIST_BACKGROUND = FileHandler.CLASSIC_BACKGROUND
-                ? MinimenuCommon.identify("textures/gui/inworld_menu_list_background.png")
+                ? Minimenu.identify("textures/gui/inworld_menu_list_background.png")
                 : Identifier.withDefaultNamespace("textures/gui/inworld_menu_list_background.png");
     }
 }

@@ -4,7 +4,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.components.tabs.MenuTabBar;
 import net.minecraft.resources.Identifier;
-import org.minimalmenu.common.MinimenuCommon;
+import org.minimalmenu.common.Minimenu;
 import org.minimalmenu.common.options.FileHandler;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,10 +27,10 @@ public class MenuTabButtonMixin {
     @Inject(method = "extractWidgetRenderState", at = @At("HEAD"))
     private void renderWidget(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo callback) {
         SPRITES = FileHandler.CLASSIC_BACKGROUND ? new WidgetSprites(
-                MinimenuCommon.identify("widget/tab_selected"),
-                MinimenuCommon.identify("widget/tab"),
-                MinimenuCommon.identify("widget/tab_selected_highlighted"),
-                MinimenuCommon.identify("widget/tab_highlighted")
+                Minimenu.identify("widget/tab_selected"),
+                Minimenu.identify("widget/tab"),
+                Minimenu.identify("widget/tab_selected_highlighted"),
+                Minimenu.identify("widget/tab_highlighted")
         ) : new WidgetSprites(
                 Identifier.withDefaultNamespace("widget/tab_selected"),
                 Identifier.withDefaultNamespace("widget/tab"),

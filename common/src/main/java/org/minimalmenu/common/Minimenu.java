@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Objects;
 
-public class MinimenuCommon {
+public class Minimenu {
     public static final String MOD_ID = "minimenu";
     public static final String MOD_NAME = StringUtils.capitalize(MOD_ID);
 

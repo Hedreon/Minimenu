@@ -19,18 +19,18 @@
         "TGODiamond"
     ],
     "license": "MIT",
-    "icon": "icon-fabric.png",
+    "icon": "icon_fabric.png",
     "environment": "client",
     "entrypoints": {
         "client": [
             "org.minimalmenu.fabric.MinimenuFabric"
         ],
         "modmenu": [
-            "org.minimalmenu.fabric.options.Integration"
+            "org.minimalmenu.fabric.options.IntegrationFabric"
         ]
     },
     "mixins": [
-        "minimenu_common.mixins.json",
+        "minimenu.mixins.json",
         "minimenu_fabric.mixins.json"
     ],
     "depends": {

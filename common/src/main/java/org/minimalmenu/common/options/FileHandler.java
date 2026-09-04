@@ -4,7 +4,7 @@ import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import net.minecraft.client.Minecraft;
-import org.minimalmenu.common.MinimenuCommon;
+import org.minimalmenu.common.Minimenu;
 
 import java.nio.file.Path;
 
@@ -14,7 +14,7 @@ public class FileHandler {
     public static final Path CONFIG_FILE = CONFIG_DIRECTORY.resolve("minimenu.json");
 
     public static ConfigClassHandler<FileHandler> HANDLER = ConfigClassHandler.createBuilder(FileHandler.class)
-            .id(MinimenuCommon.identify("config"))
+            .id(Minimenu.identify("config"))
             .serializer(options -> GsonConfigSerializerBuilder.create(options)
                     .setPath(CONFIG_FILE)
                     .build())

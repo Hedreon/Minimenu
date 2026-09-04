@@ -10,7 +10,7 @@ import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
-import org.minimalmenu.common.MinimenuCommon;
+import org.minimalmenu.common.Minimenu;
 import org.minimalmenu.common.helpers.ButtonList;
 import org.minimalmenu.common.helpers.ScreenExtensions;
 import org.minimalmenu.common.options.FileHandler;
@@ -61,13 +61,13 @@ public class ScreenMixin implements ScreenExtensions {
     public static Identifier INWORLD_FOOTER_SEPARATOR = Identifier.withDefaultNamespace("textures/gui/inworld_footer_separator.png");
 
     @Unique
-    private static final Identifier CLASSIC_MENU_BACKGROUND = MinimenuCommon.identify("textures/gui/menu_background.png");
+    private static final Identifier CLASSIC_MENU_BACKGROUND = Minimenu.identify("textures/gui/menu_background.png");
 
     @Unique
-    private static final Identifier CLASSIC_HEADER_SEPARATOR = MinimenuCommon.identify("textures/gui/header_separator.png");
+    private static final Identifier CLASSIC_HEADER_SEPARATOR = Minimenu.identify("textures/gui/header_separator.png");
 
     @Unique
-    private static final Identifier CLASSIC_FOOTER_SEPARATOR = MinimenuCommon.identify("textures/gui/footer_separator.png");
+    private static final Identifier CLASSIC_FOOTER_SEPARATOR = Minimenu.identify("textures/gui/footer_separator.png");
 
     @Unique
     private List<AbstractWidget> AVAILABLE_BUTTONS;
@@ -105,7 +105,7 @@ public class ScreenMixin implements ScreenExtensions {
                 : Identifier.withDefaultNamespace("textures/gui/footer_separator.png");
 
         INWORLD_MENU_BACKGROUND = FileHandler.CLASSIC_BACKGROUND
-                ? MinimenuCommon.identify("textures/gui/inworld_menu_background.png")
+                ? Minimenu.identify("textures/gui/inworld_menu_background.png")
                 : Identifier.withDefaultNamespace("textures/gui/inworld_menu_background.png");
 
         INWORLD_HEADER_SEPARATOR = FileHandler.CLASSIC_BACKGROUND

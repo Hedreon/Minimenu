@@ -8,13 +8,13 @@ modId = "minimenu"
 version = "${version}"
 displayName = "Minimenu"
 description = "Declutters screens like the title screen through configurable options."
-iconFile = "icon-neoforge.png"
+iconFile = "icon_neoforge.png"
 credits = "jackassmc, umollu, huiki, TGODiamond"
 authors = "TomB_134, Hedreon"
 displayURL = "https://github.com/Hedreon/Minimenu"
 
 [[mixins]]
-config = "minimenu_common.mixins.json"
+config = "minimenu.mixins.json"
 
 [[mixins]]
 config = "minimenu_neoforge.mixins.json"

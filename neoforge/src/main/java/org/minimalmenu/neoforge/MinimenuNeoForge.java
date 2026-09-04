@@ -9,11 +9,11 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import org.jetbrains.annotations.NotNull;
-import org.minimalmenu.common.MinimenuCommon;
+import org.minimalmenu.common.Minimenu;
 import org.minimalmenu.common.options.FileHandler;
 import org.minimalmenu.common.options.ScreenFactory;
 
-@Mod(value = MinimenuCommon.MOD_ID, dist = Dist.CLIENT)
+@Mod(value = Minimenu.MOD_ID, dist = Dist.CLIENT)
 public class MinimenuNeoForge {
     public MinimenuNeoForge(IEventBus eventBus) {
         eventBus.addListener(this::initialize);
