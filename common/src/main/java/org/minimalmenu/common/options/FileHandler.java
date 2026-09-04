@@ -4,7 +4,6 @@ import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
 import org.minimalmenu.common.MinimenuCommon;
 
 import java.nio.file.Path;
@@ -46,7 +45,7 @@ public class FileHandler {
     public static boolean REMOVE_ACCESSIBILITY;
 
     @SerialEntry
-    public static String COPYRIGHT_TEXT = Component.translatable("title.credits").getString();
+    public static boolean REMOVE_COPYRIGHT;
 
     @SerialEntry
     public static boolean CLASSIC_BACKGROUND;

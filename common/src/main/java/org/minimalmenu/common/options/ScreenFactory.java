@@ -7,7 +7,6 @@ import dev.isxander.yacl3.api.OptionDescription;
 import dev.isxander.yacl3.api.OptionGroup;
 import dev.isxander.yacl3.api.StateManager;
 import dev.isxander.yacl3.api.YetAnotherConfigLib;
-import dev.isxander.yacl3.api.controller.StringControllerBuilder;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -138,10 +137,10 @@ public class ScreenFactory {
                                 .binding(false, () -> FileHandler.REMOVE_EDITION, newValue -> FileHandler.REMOVE_EDITION = newValue)
                                 .controller(TickBoxControllerBuilder::create)
                                 .build(),
-                        Option.<String>createBuilder()
+                        Option.<Boolean>createBuilder()
                                 .name(Component.translatable("minimenu.options.title_screen.copyright.name"))
-                                .binding(Component.translatable("title.credits").getString(), () -> FileHandler.COPYRIGHT_TEXT, newValue -> FileHandler.COPYRIGHT_TEXT = newValue)
-                                .controller(StringControllerBuilder::create)
+                                .binding(false, () -> FileHandler.REMOVE_COPYRIGHT, newValue -> FileHandler.REMOVE_COPYRIGHT = newValue)
+                                .controller(TickBoxControllerBuilder::create)
                                 .build()
                 ))
                 .build());
