@@ -19,7 +19,7 @@ public class TitleScreenMixinNeoForge {
     }
 
     @WrapWithCondition(method = "extractRenderState", at = @At(value = "INVOKE", target = "Lnet/neoforged/neoforge/internal/BrandingControl;forEachAboveCopyrightLine(Ljava/util/function/BiConsumer;)V", remap = false))
-    public boolean shouldRenderBranding(BiConsumer<Integer, String> lineConsumer) {
+    private boolean shouldRenderBranding(BiConsumer<Integer, String> lineConsumer) {
         return !FileHandler.REMOVE_VERSION;
     }
 }
