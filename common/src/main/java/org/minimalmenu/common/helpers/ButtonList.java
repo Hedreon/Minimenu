@@ -9,7 +9,7 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 
 /**
- * Adopted from <a href="https://github.com/FabricMC/fabric-api/blob/HEAD/fabric-screen-api-v1/src/client/java/net/fabricmc/fabric/impl/client/screen/ButtonList.java">Fabric API's ButtonList.java.</a>
+ * Adapted from <a href="https://github.com/FabricMC/fabric-api/blob/HEAD/fabric-screen-api-v1/src/client/java/net/fabricmc/fabric/impl/client/screen/ButtonList.java">Fabric API's ButtonList.java.</a>
  */
 
 public final class ButtonList extends AbstractList<AbstractWidget> {

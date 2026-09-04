@@ -6,7 +6,7 @@ import net.minecraft.client.gui.screens.Screen;
 import java.util.List;
 
 /**
- * Adopted from <a href="https://github.com/FabricMC/fabric-api/blob/HEAD/fabric-screen-api-v1/src/client/java/net/fabricmc/fabric/impl/client/screen/ScreenExtensions.java">Fabric API's ScreenExtensions.java.</a>
+ * Adapted from <a href="https://github.com/FabricMC/fabric-api/blob/HEAD/fabric-screen-api-v1/src/client/java/net/fabricmc/fabric/impl/client/screen/ScreenExtensions.java">Fabric API's ScreenExtensions.java.</a>
  */
 
 public interface ScreenExtensions {
