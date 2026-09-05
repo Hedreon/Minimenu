@@ -43,7 +43,7 @@
     "minimenu.options.group.background.title": "Background",
     "minimenu.options.group.background.description": "Options for changing the background used throughout Minecraft.",
 
-    "minimenu.options.link": "This takes you to Minecraft's %s settings.",
+    "minimenu.options.link": "This takes you to Minecraft's %s.",
     "minimenu.options.link.splash_texts": "Set to ON to hide the splash texts.",
     "minimenu.options.link.panorama_speed": "Set to 0% to pause the panorama.",
 

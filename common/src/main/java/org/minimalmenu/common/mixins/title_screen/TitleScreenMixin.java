@@ -41,7 +41,7 @@ public abstract class TitleScreenMixin extends Screen {
     }
 
     @Inject(method = "init", at = @At("TAIL"))
-    protected void initializeWidgets(CallbackInfo callback) {
+    private void initializeWidgets(CallbackInfo callback) {
         final int spacing = 24;
         int offset = 0;
 

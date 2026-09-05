@@ -67,7 +67,10 @@ public class ScreenFactory {
                         ButtonOption.createBuilder()
                                 .name(Component.translatable("options.hideSplashTexts"))
                                 .description(OptionDescription.of(Component.literal(String.join(" ",
-                                        Component.translatable("minimenu.options.link", "accessibility").getString(),
+                                        Component.translatable(
+                                                "minimenu.options.link",
+                                                Component.translatable("options.accessibility.title").getString().toLowerCase()
+                                        ).getString(),
                                         Component.translatable("minimenu.options.link.splash_texts").getString()
                                 ))))
                                 .text(Component.empty())
@@ -78,7 +81,10 @@ public class ScreenFactory {
                         ButtonOption.createBuilder()
                                 .name(Component.translatable("options.accessibility.panorama_speed"))
                                 .description(OptionDescription.of(Component.literal(String.join(" ",
-                                        Component.translatable("minimenu.options.link", "accessibility").getString(),
+                                        Component.translatable(
+                                                "minimenu.options.link",
+                                                Component.translatable("options.accessibility.title").getString().toLowerCase()
+                                        ).getString(),
                                         Component.translatable("minimenu.options.link.panorama_speed").getString()
                                 ))))
                                 .text(Component.empty())
