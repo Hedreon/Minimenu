@@ -33,7 +33,7 @@ side = "CLIENT"
 modId = "neoforge"
 type = "required"
 versionRange = "[${neoforge_version},)"
-ordering = "AFTER"
+ordering = "NONE"
 side = "CLIENT"
 
 [[dependencies.minimenu]]

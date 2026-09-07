@@ -9,9 +9,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.function.BiConsumer;
 
 /**
- * Adapted from <a href="https://github.com/Wilyicaro/Legacy-Minecraft/blob/HEAD/src/main/java/wily/legacy/mixin/base/client/title/TitleScreenMixin.java">Legacy4J's TitleScreenMixin.java.</a>
+ * Adapted from <a href="https://github.com/Wilyicaro/Legacy-Minecraft/blob/HEAD/src/main/java/wily/legacy/mixin/base/client/title/TitleScreenMixin.java">Legacy4J's TitleScreenMixin.</a>
  */
-
 @Mixin(TitleScreen.class)
 public class TitleScreenMixinNeoForge {
     @WrapWithCondition(

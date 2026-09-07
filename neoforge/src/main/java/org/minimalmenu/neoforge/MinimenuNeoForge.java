@@ -26,7 +26,7 @@ public class MinimenuNeoForge {
         }
     }
 
-    private void initialize(FMLClientSetupEvent event) {
+    private void initialize(FMLClientSetupEvent setupEvent) {
         ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, ScreenFactoryNeoForge::new);
 
         FileHandler.HANDLER.load();

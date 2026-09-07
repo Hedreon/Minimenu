@@ -41,8 +41,8 @@ dependencies {
     implementation("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
     implementation("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
 
-    implementation("dev.isxander:yet-another-config-lib:${rootProject.yacl_version}+${project.minecraft_version}-fabric")
     implementation("com.terraformersmc:modmenu:${project.modmenu_version}")
+    implementation("dev.isxander:yet-another-config-lib:${rootProject.yacl_version}+${project.minecraft_version}-fabric")
 
     common(project("path": ":common")) {
         transitive = false
