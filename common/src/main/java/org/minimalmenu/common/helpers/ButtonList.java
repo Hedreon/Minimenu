@@ -1,17 +1,16 @@
 package org.minimalmenu.common.helpers;
 
-import java.util.AbstractList;
-import java.util.List;
-
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 
+import java.util.AbstractList;
+import java.util.List;
+
 /**
  * Adapted from <a href="https://github.com/FabricMC/fabric-api/blob/HEAD/fabric-screen-api-v1/src/client/java/net/fabricmc/fabric/impl/client/screen/ButtonList.java">Fabric API's ButtonList.java.</a>
  */
-
 public final class ButtonList extends AbstractList<AbstractWidget> {
     private final List<Renderable> renderables;
     private final List<NarratableEntry> narratables;
@@ -42,18 +41,18 @@ public final class ButtonList extends AbstractList<AbstractWidget> {
 
     @Override
     public AbstractWidget set(int index, AbstractWidget element) {
-        AbstractWidget existing = get(index);
+        AbstractWidget existingWidget = get(index);
 
-        int i = renderables.indexOf(existing);
-        if (i >= 0) renderables.set(i, element);
+        int widgetIndex = renderables.indexOf(existingWidget);
+        if (widgetIndex >= 0) renderables.set(widgetIndex, element);
 
-        i = narratables.indexOf(existing);
-        if (i >= 0) narratables.set(i, element);
+        widgetIndex = narratables.indexOf(existingWidget);
+        if (widgetIndex >= 0) narratables.set(widgetIndex, element);
 
-        i = children.indexOf(existing);
-        if (i >= 0) children.set(i, element);
+        widgetIndex = children.indexOf(existingWidget);
+        if (widgetIndex >= 0) children.set(widgetIndex, element);
 
-        return existing;
+        return existingWidget;
     }
 
     @Override
@@ -79,16 +78,16 @@ public final class ButtonList extends AbstractList<AbstractWidget> {
             children.add(element);
         } else {
             // Use an anchor widget and insert before it.
-            AbstractWidget anchor = get(index);
+            AbstractWidget anchorWidget = get(index);
 
-            int i = renderables.indexOf(anchor);
-            renderables.add(i >= 0 ? i : renderables.size(), element);
+            int widgetIndex = renderables.indexOf(anchorWidget);
+            renderables.add(widgetIndex >= 0 ? widgetIndex : renderables.size(), element);
 
-            i = narratables.indexOf(anchor);
-            narratables.add(i >= 0 ? i : narratables.size(), element);
+            widgetIndex = narratables.indexOf(anchorWidget);
+            narratables.add(widgetIndex >= 0 ? widgetIndex : narratables.size(), element);
 
-            i = children.indexOf(anchor);
-            children.add(i >= 0 ? i : children.size(), element);
+            widgetIndex = children.indexOf(anchorWidget);
+            children.add(widgetIndex >= 0 ? widgetIndex : children.size(), element);
         }
     }
 
