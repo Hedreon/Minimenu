@@ -9,7 +9,7 @@ import java.util.AbstractList;
 import java.util.List;
 
 /**
- * Adapted from <a href="https://github.com/FabricMC/fabric-api/blob/HEAD/fabric-screen-api-v1/src/client/java/net/fabricmc/fabric/impl/client/screen/ButtonList.java">Fabric API's ButtonList.java.</a>
+ * Adapted from <a href="https://github.com/FabricMC/fabric-api/blob/HEAD/fabric-screen-api-v1/src/client/java/net/fabricmc/fabric/impl/client/screen/ButtonList.java">Fabric API's ButtonList.</a>
  */
 public final class ButtonList extends AbstractList<AbstractWidget> {
     private final List<Renderable> renderables;
