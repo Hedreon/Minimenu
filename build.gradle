@@ -9,8 +9,8 @@ architectury {
 }
 
 allprojects {
-    group = rootProject.maven_group
-    version = rootProject.mod_version
+    group = project.maven_group
+    version = project.mod_version
 }
 
 subprojects {
@@ -20,7 +20,7 @@ subprojects {
 
     base {
         // Set up a prefixed format for the mods .jar file names, e.g. "minimenu_fabric".
-        archivesName = "${rootProject.archive_name}_${project.name}"
+        archivesName = "${project.archive_name}_${project.name}"
     }
 
     repositories {
