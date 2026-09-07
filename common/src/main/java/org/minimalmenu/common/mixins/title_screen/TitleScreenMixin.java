@@ -85,7 +85,7 @@ public abstract class TitleScreenMixin extends Screen {
             }
 
             if (!Minimenu.widgetMatchesKey(widget, "title.credits")) {
-                if (FileHandler.REMOVED_MODE == FileHandler.MODES.Singleplayer) {
+                if (FileHandler.REMOVED_MODE == FileHandler.MODES.SINGLEPLAYER) {
                     if (Minimenu.widgetMatchesKey(widget, "menu.singleplayer")) {
                         offset += spacing;
                     }
@@ -93,7 +93,7 @@ public abstract class TitleScreenMixin extends Screen {
                     widget.setY(widget.getY() - (widget.getHeight() + (spacing / 6)));
                 }
 
-                if (FileHandler.REMOVED_MODE == FileHandler.MODES.Multiplayer) {
+                if (FileHandler.REMOVED_MODE == FileHandler.MODES.MULTIPLAYER) {
                     if (Minimenu.widgetMatchesKey(widget, "menu.multiplayer")) {
                         offset += spacing;
                     }
@@ -144,11 +144,11 @@ public abstract class TitleScreenMixin extends Screen {
 
         for (AbstractWidget widget : widgetList) {
             if (Minimenu.widgetMatchesKey(widget, "menu.singleplayer")) {
-                widget.visible = !(FileHandler.REMOVED_MODE == FileHandler.MODES.Singleplayer);
+                widget.visible = !(FileHandler.REMOVED_MODE == FileHandler.MODES.SINGLEPLAYER);
             }
 
             if (Minimenu.widgetMatchesKey(widget, "menu.multiplayer")) {
-                widget.visible = !(FileHandler.REMOVED_MODE == FileHandler.MODES.Multiplayer);
+                widget.visible = !(FileHandler.REMOVED_MODE == FileHandler.MODES.MULTIPLAYER);
             }
 
             if (Minimenu.widgetMatchesKey(widget, "menu.online")) {

@@ -21,35 +21,49 @@ public class ScreenFactory {
         var builder = YetAnotherConfigLib.createBuilder()
                 .title(Component.translatable("minimenu.options.title"));
 
-        var modeManager = StateManager.createSimple(
-                FileHandler.MODES.None,
+        var manager = StateManager.createSimple(
+                FileHandler.MODES.NONE,
                 () -> FileHandler.REMOVED_MODE,
                 newValue -> FileHandler.REMOVED_MODE = newValue
         );
 
-        Minecraft minecraft = Minecraft.getInstance();
+        var instance = Minecraft.getInstance();
 
         // Define save function
         builder.save(FileHandler.HANDLER::save);
 
         // Create categories
-        var general = ConfigCategory.createBuilder()
-                .name(Component.translatable("minimenu.options.general.title"))
+        var generalCategory = ConfigCategory.createBuilder()
+                .name(Component.translatable("minimenu.options.general.name"))
                 .tooltip(Component.translatable("minimenu.options.general.tooltip"));
 
-        var titleScreen = ConfigCategory.createBuilder()
-                .name(Component.translatable("minimenu.options.title_screen.title"))
+        var titleCategory = ConfigCategory.createBuilder()
+                .name(Component.translatable("minimenu.options.title_screen.name"))
                 .tooltip(Component.translatable("minimenu.options.title_screen.tooltip"));
 
-        var pauseScreen = ConfigCategory.createBuilder()
-                .name(Component.translatable("minimenu.options.pause_screen.title"))
+        var pauseCategory = ConfigCategory.createBuilder()
+                .name(Component.translatable("minimenu.options.pause_screen.name"))
                 .tooltip(Component.translatable("minimenu.options.pause_screen.tooltip"));
 
+        // Create groups
+        var backgroundGroup = OptionGroup.createBuilder()
+                .name(Component.translatable("minimenu.options.group.background.name"))
+                .description(OptionDescription.of(Component.translatable("minimenu.options.group.background.description")));
+
+        var minecraftGroup = OptionGroup.createBuilder()
+                .name(Component.translatable("minimenu.options.group.minecraft.name"))
+                .description(OptionDescription.of(Component.translatable("minimenu.options.group.minecraft.description")));
+
+        var buttonsGroup = OptionGroup.createBuilder()
+                .name(Component.translatable("minimenu.options.group.buttons.name"))
+                .description(OptionDescription.of(Component.translatable("minimenu.options.group.buttons.description")));
+
+        var textsGroup = OptionGroup.createBuilder()
+                .name(Component.translatable("minimenu.options.group.texts.name"))
+                .description(OptionDescription.of(Component.translatable("minimenu.options.group.texts.description")));
+
         // Build general options
-        general.group(OptionGroup.createBuilder()
-                .name(Component.translatable("minimenu.options.group.background.title"))
-                .description(OptionDescription.of(Component.translatable("minimenu.options.group.background.description")))
-                .option(Option.<Boolean>createBuilder()
+        generalCategory.group(backgroundGroup.option(Option.<Boolean>createBuilder()
                         .name(Component.translatable("minimenu.options.general.background.name"))
                         .description(OptionDescription.of(Component.translatable("minimenu.options.general.background.description")))
                         .binding(false, () -> FileHandler.CLASSIC_BACKGROUND, newValue -> FileHandler.CLASSIC_BACKGROUND = newValue)
@@ -57,13 +71,10 @@ public class ScreenFactory {
                         .build())
                 .build());
 
-        builder.category(general.build());
+        builder.category(generalCategory.build());
 
         // Build title screen options
-        titleScreen.group(OptionGroup.createBuilder()
-                .name(Component.translatable("minimenu.options.group.minecraft.title"))
-                .description(OptionDescription.of(Component.translatable("minimenu.options.group.minecraft.description")))
-                .options(List.of(
+        titleCategory.group(minecraftGroup.options(List.of(
                         ButtonOption.createBuilder()
                                 .name(Component.translatable("options.hideSplashTexts"))
                                 .description(OptionDescription.of(Component.literal(String.join(" ",
@@ -75,9 +86,8 @@ public class ScreenFactory {
                                 ))))
                                 .text(Component.empty())
                                 .action((yaclScreen, _) ->
-                                        minecraft.gui.setScreen(new AccessibilityOptionsScreen(yaclScreen, minecraft.options))
-                                )
-                                .build(),
+                                        instance.gui.setScreen(new AccessibilityOptionsScreen(yaclScreen, instance.options))
+                                ).build(),
                         ButtonOption.createBuilder()
                                 .name(Component.translatable("options.accessibility.panorama_speed"))
                                 .description(OptionDescription.of(Component.literal(String.join(" ",
@@ -89,35 +99,30 @@ public class ScreenFactory {
                                 ))))
                                 .text(Component.empty())
                                 .action((yaclScreen, _) ->
-                                        minecraft.gui.setScreen(new AccessibilityOptionsScreen(yaclScreen, minecraft.options))
-                                )
-                                .build()
-                ))
-                .build());
+                                        instance.gui.setScreen(new AccessibilityOptionsScreen(yaclScreen, instance.options))
+                                ).build()
+                )).build());
 
-        titleScreen.group(OptionGroup.createBuilder()
-                .name(Component.translatable("minimenu.options.group.buttons.title"))
-                .description(OptionDescription.of(Component.translatable("minimenu.options.group.buttons.description")))
-                .options(List.of(
+        titleCategory.group(buttonsGroup.options(List.of(
                         Option.<Boolean>createBuilder()
                                 .name(Component.translatable("minimenu.options.title_screen.singleplayer.name"))
                                 .description(OptionDescription.of(Component.translatable("minimenu.options.title_screen.singleplayer.description")))
-                                .stateManager(modeManager.xmap(
-                                        newValue -> newValue == FileHandler.MODES.Singleplayer,
+                                .stateManager(manager.xmap(
+                                        newValue -> newValue == FileHandler.MODES.SINGLEPLAYER,
                                         oldValue -> oldValue
-                                                ? FileHandler.MODES.Singleplayer
-                                                : FileHandler.MODES.None
+                                                ? FileHandler.MODES.SINGLEPLAYER
+                                                : FileHandler.MODES.NONE
                                 ))
                                 .controller(TickBoxControllerBuilder::create)
                                 .build(),
                         Option.<Boolean>createBuilder()
                                 .name(Component.translatable("minimenu.options.title_screen.multiplayer.name"))
                                 .description(OptionDescription.of(Component.translatable("minimenu.options.title_screen.multiplayer.description")))
-                                .stateManager(modeManager.xmap(
-                                        newValue -> newValue == FileHandler.MODES.Multiplayer,
+                                .stateManager(manager.xmap(
+                                        newValue -> newValue == FileHandler.MODES.MULTIPLAYER,
                                         oldValue -> oldValue
-                                                ? FileHandler.MODES.Multiplayer
-                                                : FileHandler.MODES.None
+                                                ? FileHandler.MODES.MULTIPLAYER
+                                                : FileHandler.MODES.NONE
                                 ))
                                 .controller(TickBoxControllerBuilder::create)
                                 .build(),
@@ -145,13 +150,9 @@ public class ScreenFactory {
                                 .binding(false, () -> FileHandler.REMOVE_ACCESSIBILITY, newValue -> FileHandler.REMOVE_ACCESSIBILITY = newValue)
                                 .controller(TickBoxControllerBuilder::create)
                                 .build()
-                ))
-                .build());
+                )).build());
 
-        titleScreen.group(OptionGroup.createBuilder()
-                .name(Component.translatable("minimenu.options.group.texts.title"))
-                .description(OptionDescription.of(Component.translatable("minimenu.options.group.texts.description")))
-                .options(List.of(
+        titleCategory.group(textsGroup.options(List.of(
                         Option.<Boolean>createBuilder()
                                 .name(Component.translatable("minimenu.options.title_screen.java_edition.name"))
                                 .description(OptionDescription.of(Component.translatable("minimenu.options.title_screen.java_edition.description")))
@@ -170,16 +171,12 @@ public class ScreenFactory {
                                 .binding(false, () -> FileHandler.REMOVE_COPYRIGHT, newValue -> FileHandler.REMOVE_COPYRIGHT = newValue)
                                 .controller(TickBoxControllerBuilder::create)
                                 .build()
-                ))
-                .build());
+                )).build());
 
-        builder.category(titleScreen.build());
+        builder.category(titleCategory.build());
 
         // Build pause screen options
-        pauseScreen.group(OptionGroup.createBuilder()
-                .name(Component.translatable("minimenu.options.group.buttons.title"))
-                .description(OptionDescription.of(Component.translatable("minimenu.options.group.buttons.description")))
-                .options(List.of(
+        pauseCategory.group(buttonsGroup.options(List.of(
                         Option.<Boolean>createBuilder()
                                 .name(Component.translatable("minimenu.options.pause_screen.feedback.name"))
                                 .binding(false, () -> FileHandler.REMOVE_FEEDBACK, newValue -> FileHandler.REMOVE_FEEDBACK = newValue)
@@ -200,10 +197,9 @@ public class ScreenFactory {
                                 .binding(false, () -> FileHandler.REMOVE_LAN, newValue -> FileHandler.REMOVE_LAN = newValue)
                                 .controller(TickBoxControllerBuilder::create)
                                 .build()
-                ))
-                .build());
+                )).build());
 
-        builder.category(pauseScreen.build());
+        builder.category(pauseCategory.build());
 
         // Build options screen
         return builder.build().generateScreen(previousScreen);

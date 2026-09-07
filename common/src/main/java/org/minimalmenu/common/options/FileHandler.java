@@ -9,28 +9,29 @@ import org.minimalmenu.common.Minimenu;
 import java.nio.file.Path;
 
 public class FileHandler {
-    private static final Path CONFIG_DIRECTORY = Minecraft.getInstance().gameDirectory.toPath().resolve("config");
-
-    public static final Path CONFIG_FILE = CONFIG_DIRECTORY.resolve("minimenu.json");
+    private static final Minecraft INSTANCE = Minecraft.getInstance();
+    private static final Path GAME_DIRECTORY = INSTANCE.gameDirectory.toPath();
+    private static final Path CONFIG_DIRECTORY = GAME_DIRECTORY.resolve("config");
+    private static final Path CONFIG_FILE = CONFIG_DIRECTORY.resolve("minimenu.json");
 
     public static ConfigClassHandler<FileHandler> HANDLER = ConfigClassHandler.createBuilder(FileHandler.class)
             .id(Minimenu.identify("config"))
             .serializer(options -> GsonConfigSerializerBuilder.create(options)
                     .setPath(CONFIG_FILE)
-                    .build())
-            .build();
+                    .build()
+            ).build();
 
     public enum MODES {
-        Singleplayer,
-        Multiplayer,
-        None
+        SINGLEPLAYER,
+        MULTIPLAYER,
+        NONE
     }
 
     @SerialEntry
     public static boolean REMOVE_EDITION;
 
     @SerialEntry
-    public static MODES REMOVED_MODE = MODES.None;
+    public static MODES REMOVED_MODE = MODES.NONE;
 
     @SerialEntry
     public static boolean REMOVE_REALMS;
