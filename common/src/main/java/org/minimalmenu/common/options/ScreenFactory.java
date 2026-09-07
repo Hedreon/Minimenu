@@ -27,7 +27,7 @@ public class ScreenFactory {
                 newValue -> FileHandler.REMOVED_MODE = newValue
         );
 
-        var instance = Minecraft.getInstance();
+        var minecraft = Minecraft.getInstance();
 
         // Define save function
         builder.save(FileHandler.HANDLER::save);
@@ -45,25 +45,11 @@ public class ScreenFactory {
                 .name(Component.translatable("minimenu.options.pause_screen.name"))
                 .tooltip(Component.translatable("minimenu.options.pause_screen.tooltip"));
 
-        // Create groups
-        var backgroundGroup = OptionGroup.createBuilder()
-                .name(Component.translatable("minimenu.options.group.background.name"))
-                .description(OptionDescription.of(Component.translatable("minimenu.options.group.background.description")));
-
-        var minecraftGroup = OptionGroup.createBuilder()
-                .name(Component.translatable("minimenu.options.group.minecraft.name"))
-                .description(OptionDescription.of(Component.translatable("minimenu.options.group.minecraft.description")));
-
-        var buttonsGroup = OptionGroup.createBuilder()
-                .name(Component.translatable("minimenu.options.group.buttons.name"))
-                .description(OptionDescription.of(Component.translatable("minimenu.options.group.buttons.description")));
-
-        var textsGroup = OptionGroup.createBuilder()
-                .name(Component.translatable("minimenu.options.group.texts.name"))
-                .description(OptionDescription.of(Component.translatable("minimenu.options.group.texts.description")));
-
         // Build general options
-        generalCategory.group(backgroundGroup.option(Option.<Boolean>createBuilder()
+        generalCategory.group(OptionGroup.createBuilder()
+                .name(Component.translatable("minimenu.options.group.background.name"))
+                .description(OptionDescription.of(Component.translatable("minimenu.options.group.background.description")))
+                .option(Option.<Boolean>createBuilder()
                         .name(Component.translatable("minimenu.options.general.background.name"))
                         .description(OptionDescription.of(Component.translatable("minimenu.options.general.background.description")))
                         .binding(false, () -> FileHandler.CLASSIC_BACKGROUND, newValue -> FileHandler.CLASSIC_BACKGROUND = newValue)
@@ -74,7 +60,10 @@ public class ScreenFactory {
         builder.category(generalCategory.build());
 
         // Build title screen options
-        titleCategory.group(minecraftGroup.options(List.of(
+        titleCategory.group(OptionGroup.createBuilder()
+                .name(Component.translatable("minimenu.options.group.minecraft.name"))
+                .description(OptionDescription.of(Component.translatable("minimenu.options.group.minecraft.description")))
+                .options(List.of(
                         ButtonOption.createBuilder()
                                 .name(Component.translatable("options.hideSplashTexts"))
                                 .description(OptionDescription.of(Component.literal(String.join(" ",
@@ -84,9 +73,9 @@ public class ScreenFactory {
                                         ).getString(),
                                         Component.translatable("minimenu.options.link.splash_texts").getString()
                                 ))))
-                                .text(Component.empty())
+                                .text(Component.literal("→"))
                                 .action((yaclScreen, _) ->
-                                        instance.gui.setScreen(new AccessibilityOptionsScreen(yaclScreen, instance.options))
+                                        minecraft.gui.setScreen(new AccessibilityOptionsScreen(yaclScreen, minecraft.options))
                                 ).build(),
                         ButtonOption.createBuilder()
                                 .name(Component.translatable("options.accessibility.panorama_speed"))
@@ -97,13 +86,16 @@ public class ScreenFactory {
                                         ).getString(),
                                         Component.translatable("minimenu.options.link.panorama_speed").getString()
                                 ))))
-                                .text(Component.empty())
+                                .text(Component.literal("→"))
                                 .action((yaclScreen, _) ->
-                                        instance.gui.setScreen(new AccessibilityOptionsScreen(yaclScreen, instance.options))
+                                        minecraft.gui.setScreen(new AccessibilityOptionsScreen(yaclScreen, minecraft.options))
                                 ).build()
                 )).build());
 
-        titleCategory.group(buttonsGroup.options(List.of(
+        titleCategory.group(OptionGroup.createBuilder()
+                .name(Component.translatable("minimenu.options.group.buttons.name"))
+                .description(OptionDescription.of(Component.translatable("minimenu.options.group.buttons.description")))
+                .options(List.of(
                         Option.<Boolean>createBuilder()
                                 .name(Component.translatable("minimenu.options.title_screen.singleplayer.name"))
                                 .description(OptionDescription.of(Component.translatable("minimenu.options.title_screen.singleplayer.description")))
@@ -152,7 +144,10 @@ public class ScreenFactory {
                                 .build()
                 )).build());
 
-        titleCategory.group(textsGroup.options(List.of(
+        titleCategory.group(OptionGroup.createBuilder()
+                .name(Component.translatable("minimenu.options.group.texts.name"))
+                .description(OptionDescription.of(Component.translatable("minimenu.options.group.texts.description")))
+                .options(List.of(
                         Option.<Boolean>createBuilder()
                                 .name(Component.translatable("minimenu.options.title_screen.java_edition.name"))
                                 .description(OptionDescription.of(Component.translatable("minimenu.options.title_screen.java_edition.description")))
@@ -176,7 +171,10 @@ public class ScreenFactory {
         builder.category(titleCategory.build());
 
         // Build pause screen options
-        pauseCategory.group(buttonsGroup.options(List.of(
+        pauseCategory.group(OptionGroup.createBuilder()
+                .name(Component.translatable("minimenu.options.group.buttons.name"))
+                .description(OptionDescription.of(Component.translatable("minimenu.options.group.buttons.description")))
+                .options(List.of(
                         Option.<Boolean>createBuilder()
                                 .name(Component.translatable("minimenu.options.pause_screen.feedback.name"))
                                 .binding(false, () -> FileHandler.REMOVE_FEEDBACK, newValue -> FileHandler.REMOVE_FEEDBACK = newValue)
