@@ -1,5 +1,6 @@
 package org.minimalmenu.common.mixins.title_screen;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -10,6 +11,7 @@ import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
 import org.minimalmenu.common.Minimenu;
 import org.minimalmenu.common.options.FileHandler;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -40,7 +42,24 @@ public abstract class TitleScreenMixin extends Screen {
         return !FileHandler.REMOVE_COPYRIGHT ? original.call(instance, eventListener) : null;
     }
 
-    @Inject(method = "init", at = @At("TAIL"))
+    @ModifyExpressionValue(
+            method = "createNormalMenuOptions",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lnet/minecraft/SharedConstants;IS_RUNNING_IN_IDE:Z",
+                    opcode = Opcodes.GETSTATIC
+            )
+    )
+    private boolean spoofEnvironment(boolean original) {
+        return false;
+    }
+
+    @Inject(
+            method = "init",
+            at = @At(
+                    value = "TAIL"
+            )
+    )
     private void initializeWidgets(CallbackInfo callback) {
         final int spacing = 24;
         int offset = 0;
@@ -114,7 +133,12 @@ public abstract class TitleScreenMixin extends Screen {
         }
     }
 
-    @Inject(method = "createNormalMenuOptions", at = @At("TAIL"))
+    @Inject(
+            method = "createNormalMenuOptions",
+            at = @At(
+                    value = "TAIL"
+            )
+    )
     private void createMenu(int topPos, int spacing, CallbackInfoReturnable<Integer> callback) {
         List<AbstractWidget> widgetList = Minimenu.getWidgets(this);
 
