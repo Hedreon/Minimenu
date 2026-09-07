@@ -27,7 +27,7 @@ public class ScreenFactory {
                 newValue -> FileHandler.REMOVED_MODE = newValue
         );
 
-        var minecraft = Minecraft.getInstance();
+        var client = Minecraft.getInstance();
 
         // Define save function
         builder.save(FileHandler.HANDLER::save);
@@ -75,7 +75,7 @@ public class ScreenFactory {
                                 ))))
                                 .text(Component.literal("→"))
                                 .action((yaclScreen, _) ->
-                                        minecraft.gui.setScreen(new AccessibilityOptionsScreen(yaclScreen, minecraft.options))
+                                        client.gui.setScreen(new AccessibilityOptionsScreen(yaclScreen, client.options))
                                 ).build(),
                         ButtonOption.createBuilder()
                                 .name(Component.translatable("options.accessibility.panorama_speed"))
@@ -88,7 +88,7 @@ public class ScreenFactory {
                                 ))))
                                 .text(Component.literal("→"))
                                 .action((yaclScreen, _) ->
-                                        minecraft.gui.setScreen(new AccessibilityOptionsScreen(yaclScreen, minecraft.options))
+                                        client.gui.setScreen(new AccessibilityOptionsScreen(yaclScreen, client.options))
                                 ).build()
                 )).build());
 

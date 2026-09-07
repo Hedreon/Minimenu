@@ -9,8 +9,8 @@ import org.minimalmenu.common.Minimenu;
 import java.nio.file.Path;
 
 public class FileHandler {
-    private static final Minecraft INSTANCE = Minecraft.getInstance();
-    private static final Path GAME_DIRECTORY = INSTANCE.gameDirectory.toPath();
+    private static final Minecraft CLIENT = Minecraft.getInstance();
+    private static final Path GAME_DIRECTORY = CLIENT.gameDirectory.toPath();
     private static final Path CONFIG_DIRECTORY = GAME_DIRECTORY.resolve("config");
     private static final Path CONFIG_FILE = CONFIG_DIRECTORY.resolve("minimenu.json");
 
