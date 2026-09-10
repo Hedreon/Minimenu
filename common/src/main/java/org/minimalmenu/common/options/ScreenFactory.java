@@ -16,7 +16,7 @@ import net.minecraft.network.chat.Component;
 import java.util.List;
 
 public class ScreenFactory {
-    public static Screen createScreen(Screen previousScreen) {
+    public static Screen buildScreen(Screen previousScreen) {
         // Set up variables
         var builder = YetAnotherConfigLib.createBuilder()
                 .title(Component.translatable("minimenu.options.title"));

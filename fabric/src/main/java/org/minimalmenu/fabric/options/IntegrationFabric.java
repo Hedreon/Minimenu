@@ -7,6 +7,6 @@ import org.minimalmenu.common.options.ScreenFactory;
 public class IntegrationFabric implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return ScreenFactory::createScreen;
+        return ScreenFactory::buildScreen;
     }
 }

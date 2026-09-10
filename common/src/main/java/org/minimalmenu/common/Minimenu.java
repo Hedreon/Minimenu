@@ -5,6 +5,8 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.minimalmenu.common.helpers.ScreenExtensions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,22 +20,28 @@ public class Minimenu {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
+    public static void log(Object message) {
+        LOGGER.info(String.valueOf(message));
+    }
+
+    public static @NotNull Identifier identify(String path) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
+    }
+
+    public static List<AbstractWidget> getWidgets(Screen screen) {
+        Objects.requireNonNull(screen, "Screen cannot be null");
+
+        ScreenExtensions extensions = ScreenExtensions.getExtensions(screen);
+
+        return extensions.GET_AVAILABLE_BUTTONS();
+    }
+
     public static boolean widgetMatchesKey(AbstractWidget widget, String key) {
         Objects.requireNonNull(widget, "Widget cannot be null");
 
         Component widgetMessage = widget.getMessage();
         Component translatableKey = Component.translatable(key);
 
-        return Objects.equals(widgetMessage, translatableKey);
-    }
-
-    public static List<AbstractWidget> getWidgets(Screen screen) {
-        Objects.requireNonNull(screen, "Screen cannot be null");
-
-        return ScreenExtensions.getExtensions(screen).GET_AVAILABLE_BUTTONS();
-    }
-
-    public static Identifier identify(String path) {
-        return Identifier.fromNamespaceAndPath(MOD_ID, path);
+        return widgetMessage.equals(translatableKey);
     }
 }

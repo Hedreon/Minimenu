@@ -15,14 +15,14 @@ import org.minimalmenu.common.options.ScreenFactory;
 
 @Mod(value = Minimenu.MOD_ID, dist = Dist.CLIENT)
 public class MinimenuNeoForge {
-    public MinimenuNeoForge(IEventBus eventBus) {
+    public MinimenuNeoForge(@NotNull IEventBus eventBus) {
         eventBus.addListener(this::initialize);
     }
 
     private static class ScreenFactoryNeoForge implements IConfigScreenFactory {
         @Override
         public @NotNull Screen createScreen(@NotNull ModContainer container, @NotNull Screen previousScreen) {
-            return ScreenFactory.createScreen(previousScreen);
+            return ScreenFactory.buildScreen(previousScreen);
         }
     }
 
